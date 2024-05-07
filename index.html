@@ -70,7 +70,7 @@
 <body>
 
 <div class="container">
-  <div class="card">
+  <div class="card" data-index="1">
     <div class="img-wrapper"><img src="interactive1/index.png" alt="Thumbnail 1"></div>
     <div class="card-content">
       <h2 class="card-title">Folder 1</h2>
@@ -78,7 +78,7 @@
     </div>
   </div>
 
-  <div class="card">
+  <div class="card" data-index="2">
     <div class="img-wrapper"><img src="interactive2/index.png" alt="Thumbnail 2"></div>
     <div class="card-content">
       <h2 class="card-title">Folder 2</h2>
@@ -86,14 +86,31 @@
     </div>
   </div>
 
-  <div class="card">
+  <div class="card" data-index="3">
     <div class="img-wrapper"><img src="interactive3/index.png" alt="Thumbnail 3"></div>
     <div class="card-content">
       <h2 class="card-title">Folder 2</h2>
-      <p class="card-description">폰트 스타일을 바꾸어보아요</p>
+      <p class="card-description">폰트 스타일을 바꾸어보아요.</p>
     </div>
   </div>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+  // 모든 카드 요소를 가져옴
+  const cards = document.querySelectorAll(".card");
+
+  // 각 카드에 클릭 이벤트 리스너를 추가
+  cards.forEach(function(card) {
+    card.addEventListener("click", function() {
+      // 클릭된 카드의 data-index 값을 가져옴
+      const index = card.getAttribute("data-index");
+
+      // 해당하는 페이지 경로로 이동
+      window.location.href = `interactive${index}/index.html`;
+    });
+  });
+});
+</script>
 
 </body>
 </html>
