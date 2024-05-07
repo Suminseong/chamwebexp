@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub Main Page</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f6f8fa;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 20px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 20px;
+    padding: 0 20px;
+  }
+
+  .card {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .card-content {
+    padding: 20px;
+  }
+
+  .card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+    color: #333;
+  }
+
+  .card-description {
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="card">
+    <img src="interactive1/index.png" alt="Thumbnail 1">
+    <div class="card-content">
+      <h2 class="card-title">Folder 1</h2>
+      <p class="card-description">Description for folder 1 goes here.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="interactive2/index.png" alt="Thumbnail 2">
+    <div class="card-content">
+      <h2 class="card-title">Folder 2</h2>
+      <p class="card-description">Description for folder 2 goes here.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="interactive3/index.png" alt="Thumbnail 2">
+    <div class="card-content">
+      <h2 class="card-title">Folder 2</h2>
+      <p class="card-description">Description for folder 2 goes here.</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
