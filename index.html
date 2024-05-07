@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GitHub Main Page</title>
 <style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
   body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -28,12 +32,21 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
-  .card img {
+  .img-wrapper {
+    position: relative;
+    width: 375px;
+    height: 375px;
+  }
+
+  .img-wrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(50, 50);
     width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 10000px;
-    border-bottom: 1px solid #ddd;
+    height: 100%;
+    object-fit: cover;
+    margin: auto;
   }
 
   .card-content {
@@ -58,7 +71,7 @@
 
 <div class="container">
   <div class="card">
-    <img src="interactive1/index.png" alt="Thumbnail 1">
+    <div class="img-wrapper"><img src="interactive1/index.png" alt="Thumbnail 1"></div>
     <div class="card-content">
       <h2 class="card-title">Folder 1</h2>
       <p class="card-description">이미지 슬라이더!</p>
@@ -66,7 +79,7 @@
   </div>
 
   <div class="card">
-    <img src="interactive2/index.png" alt="Thumbnail 2">
+    <div class="img-wrapper"><img src="interactive2/index.png" alt="Thumbnail 2"></div>
     <div class="card-content">
       <h2 class="card-title">Folder 2</h2>
       <p class="card-description">타로카드로 점을 봐준다고??</p>
@@ -74,7 +87,7 @@
   </div>
 
   <div class="card">
-    <img src="interactive3/index.png" alt="Thumbnail 2">
+    <div class="img-wrapper"><img src="interactive3/index.png" alt="Thumbnail 3"></div>
     <div class="card-content">
       <h2 class="card-title">Folder 2</h2>
       <p class="card-description">폰트 스타일을 바꾸어보아요</p>
