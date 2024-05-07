@@ -71,8 +71,7 @@ body {
 .portrait {
     grid-column: 3;
     grid-row: 2;
-    /* background-color: lightsalmon; */
-    padding: 0px 16px;
+    background-color: lightsalmon;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -98,7 +97,6 @@ aside {
     width: fit-content;
     padding: 80px 40px;
     background-color: rgb(77, 92, 107);
-    color: #fafafa;
     transform: translateX(-240px);
     transition: all 0.3s;
 }
@@ -128,10 +126,6 @@ div.sub-heading {
 }
 
 /*아래부터는 텍스트 공통 스타일들입니다.*/
-
-h2 {
-    margin-left: 0.5vw;
-}
 
 h3 {
     font-size: 0.9375vw;
@@ -280,7 +274,7 @@ h3 {
     width: 16.75vw;
     height: 16.75vw;
     border-radius: 1000px;
-    background-image: url('https://i.postimg.cc/6QLCmGqm/leader.png');
+    background-image: url('https://i.postimg.cc/MGY2qQsm/leader.png');
     background-size: cover;
     overflow: hidden;
 }
@@ -293,9 +287,6 @@ h3 {
     justify-content: center;
     height: 300px;
     gap: 0.78125vw;
-    border-radius: 1.5vw;
-    padding: 0 20px;
-    background-color: white;
 }
 
 .resetButton{

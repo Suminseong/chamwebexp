@@ -25,11 +25,12 @@ const majorArcana = [
 
 const witchText = [
     {saying1 : "당신을 위해 6장의 메이저 아르카나를 준비했습니다.", saying2 : "당신은 이제까지 어떤 사람이었나요? <br>당신은 지금 어떤 사람인가요? <br>당신은 먼 훗날 어떤 사람으로 남을까요? <br>궁금하지 않다구요? 그러면 왜 오셨나요...", saying3 : "당신의 손에 잡힌 카드들이 부디 옳은 미래를 보여줄 수 있기를." },
-    {saying1 : "카드를 확인해볼까요...", saying2 : "사실 타로는 뒤집어진 카드도 해석이 있지만, 사악한 개발자가 구현 코드를 날려버려서 사라진 기능이라고 하네요. 멍청한 개발자...", saying3 : "점쟁이한테 허접스러운 이름을 지어준 개발자가 더 고생하기를." },
-    {saying1 : "좋아요. 카드를 눌러보시면 크게 볼 수 있습니다.", saying2 : "저는 비록 Ai가 만들어낸 유사 점쟁이에 불과하지만, 그 카드에 대한 정보는 알려드릴 수 있습니다. 이름과 어떻게 해석을 할 수 있는지 말이죠.", saying3 : "카드를 뽑을 때 마다 다른 카드가 나오는 건 수학적인 이슈입니다." },
+    {saying1 : "카드를 확인해볼까요...", saying2 : "사실 타로는 뒤집어진 카드도 해석이 있지만, 사악한 개발자가 역아르카나 구현 코드를 날려버려서 사라진 기능이라고 하네요. 이러면 제대로 못보는데...", saying3 : "점쟁이한테 허접스러운 이름을 지어준 개발자가 더 고생하기를." },
+    {saying1 : "좋아요. 카드를 눌러보시면 크게 볼 수 있습니다.", saying2 : "저는 비록 Ai가 찌끄린 유사 점쟁이에 불과하지만, 그 카드에 대한 정보는 알려드릴 수 있습니다. 이름과 어떻게 해석을 할 수 있는지 말이죠.", saying3 : "카드를 뽑을 때 마다 다른 카드가 나오는 건 수학적인 이슈입니다." },
     {saying1 : "이 카드는...", saying2 : "", saying3 : "다른 카드도 살펴볼까요? 마음에 안 든다면 다시 해보셔도 좋습니다. 타로는 카드가 당신을 선택하는게 아니니까요." },
 ]
 
+/*GPT님 단순 노동을 도와줘서 감사합니다...*/
 const menuTag = document.querySelector('.open-menu');
 const xTag = document.querySelector('.close-menu');
 const asideTag = document.querySelector('aside');
@@ -130,13 +131,10 @@ function clearAllTextboxes() {
     typing3.innerHTML = '';
 }
 
-// 타이핑 효과를 적용하는 함수.
-// 개선필요 : 타이핑 진행중에 타이핑 request 들어모는 경우 예외처리
+// 타이핑 효과를 적용하는 함수
 function typeText(element, text, onFinish) {
     if (isTyping) return; // 타이핑이 진행 중이면 함수를 종료
     isTyping = true; // 타이핑이 시작됨을 표시
-    document.body.style.pointerEvents = 'none';
-
     let i = 0;
     const interval = setInterval(function() {
         if (i < text.length) {
@@ -144,7 +142,6 @@ function typeText(element, text, onFinish) {
         } else {
             clearInterval(interval);
             isTyping = false; // 타이핑이 종료됨을 표시
-            document.body.style.pointerEvents = 'auto';
             if (onFinish) onFinish(); // onFinish 함수가 주어진 경우 호출
         }
     }, 40); // 한 글자씩 출력하는 간격 (40ms로 설정)
@@ -164,7 +161,7 @@ function foldSaying(t) {
     });
 }
 
-// openSaying
+// openSaying 함수 수정
 function openSaying(index) {
     clearAllTextboxes();
     leaderSayArray.forEach((leaderTalk) => {
@@ -174,7 +171,7 @@ function openSaying(index) {
         const talkbox2 = leaderTalk.querySelector('.talkbox2');
         const talkbox3 = leaderTalk.querySelector('.talkbox3');
 
-        // 타이핑 효과 적용. 세개의 텍스트 공간에 순차적으로 적용됩니다.
+        // 타이핑 효과 적용
         typeText(talkbox1, `이 카드는... ${majorArcana[cardNum].name}이군요. 키워드는 '${majorArcana[cardNum].keyword}'입니다.`, function() {
             typeText(talkbox2, majorArcana[cardNum].description, function() {
                 typeText(talkbox3, pWitch.saying3);
@@ -197,7 +194,7 @@ cards.forEach((card, index) => { //카드 객체 전체에 대해...
             if (card.classList.contains('enlarged-card')){ //카드가 커졌는지?
                 ensmallCard(card); //카드 줄이기
                 if (index > 2) {
-                    cardX = ((index + 1) * 110) - 950; // 카드 위치잡기, 수치는 노가다로 만들었습니다.
+                    cardX = ((index + 1) * 110) - 950;
                     card.style.left = '';
                     card.style.transform = `translate(${cardX}% , 130%)`; // 카드가 아랫줄로 원위치
                     console.log(`now transform is ${cardX}% and this card index is ${index+1}`)

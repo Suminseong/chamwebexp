@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="">
+    <link rel="apple-touch-icon" href="">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <title>레이트레이싱</title>
+</head>
+
+<body>
+    <h1>Rendering<br>Technologies</h1>
+    <section style="margin-top: 12.7vw;">
+        <div class="title">
+            <h2 class="subtitle">개요</h2>
+        </div>
+        <div class="description">
+            <p class="text-18px">현실감 있고, 장면의 생생한 분위기를 살릴 수 있는 렌더링 기법은 이제 Unreal Engine이나 Cycles와 같은 사용자 친화적인 프로그램을 활용하여
+                손쉽게 구현할 수 있습니다. 하지만, 이러한 기술들에 대해 심도깊은 이해가 없다면 렌더링 퀄리티를 높이는 것은 매우 어려울 것입니다.
+                실제로, 수많은 재질과 텍스처 기술에 적용되는 레이 트레이싱과 레스터, Ambient Oclision, 글로벌 일루미네이션 등 여러 복잡한 기술들은 사용자들이 때때로 차이를 이해하기 힘든
+                경우도 존재합니다. 그리고, 이런 다양한 기술들은 대체로 동시에 하나의 씬에 적용됩니다. 쉽게 말해,
+                각 기술들의 유무에 따라 어떤 변화가 생기는지 일반적인 사용자들은 알아내기 어렵다는 의미 입니다.
+            </p>
+            <p class="text-18px">
+                그래서, 본 페이지에서는 각종 기술들을 적용하였을 때와 그렇지 않을 때를 한 눈에 비교할 수 있는 기능을 제공하려고 합니다. 여러분이 렌더링 기술에 조금 더 익숙해지고, 쉽게 본인이
+                원하는 결과물을 얻기를 바라는 마음에서 말이죠. 미래에 3D 제품, 캐릭터를 만들 일이 없다고요?
+                그렇다면 그냥 재미로 봐주셔도 괜찮습니다. 비전공자가 보기에도 어렵지 않게 전문용어를 배제하고 심심하지 않게 만든 점도 있지만, 렌더링 씬을 직접 모델링하고 촬영하느라 고생한 제작자를
+                가엾게 여기시고, 되도록 즐겁게 봐주셨으면 좋겠습니다. 내장그래픽이나, RTX 20 세대 미만의
+                제품을 사용중이라면 적용할 수 없는 기능이 다수 포함되니 이 점 유의 바랍니다.
+            </p>
+        </div>
+        <p class="text-12px">ps. 이미지에 들어간 슬라이더는 구글링을 통해 직접 만들었습니다. 버그나 오류, 개선사항 제보는 언제나 환영입니다.</p>
+    </section>
+    <section style="margin-top: 5vw;">
+        <div class="title">
+            <h2 class="subtitle">상세</h2>
+        </div>
+        <div class="jspart">
+            <ul>
+                <li><button title="Ray tracing" type="button" class="btn btn1 selected" data-navIndex="1">01</button>
+                </li>
+                <li><button title="Ambient Occlusion" type="button" class="btn btn2 unselected"
+                        data-navIndex="2">02</button></li>
+                <li><button title="Globlal Illumination" type="button" class="btn btn3 unselected"
+                        data-navIndex="3">03</button></li>
+                <li><button title="Realtime RT" type="button" class="btn btn4 unselected" data-navIndex="4">04</button>
+                </li>
+            </ul>
+            <div class="container">
+                <div class="slideSelector comparison-slider content" data-index="1">
+                    <figure class="before">
+                        <img src="https://i.postimg.cc/nVjGwwHJ/RTOFF.png" alt="RTOFF">
+                        <div class="figcaption">RT off</div>
+                    </figure>
+                    <figure class="after">
+                        <img src="https://i.postimg.cc/fRZ7yzYz/RTON.png" alt="RTON">
+                        <div class="figcaption">RT on</div>
+                    </figure>
+                    <div class="slider"></div>
+                </div>
+                <!---------------슬라이더 인덱스-----링크 교체요망--------------->
+                <div class="slideSelector comparison-slider content" data-index="2">
+                    <figure class="before">
+                        <img src="https://i.postimg.cc/QdBsnGqm/AOOFF.png" alt="AOOFF">
+                        <div class="figcaption">RT off</div>
+                    </figure>
+                    <figure class="after">
+                        <img src="https://i.postimg.cc/xT19MbJW/AOON.png" alt="AOON">
+                        <div class="figcaption">RT on</div>
+                    </figure>
+                    <div class="slider"></div>
+                </div>
+                <!---------------슬라이더 인덱스-----링크 교체요망--------------->
+                <div class="slideSelector comparison-slider content" data-index="3">
+                    <figure class="before">
+                        <img src="https://i.postimg.cc/c4k0m4f6/GLOFF.png" alt="GLOFF">
+                        <div class="figcaption">RT off</div>
+                    </figure>
+                    <figure class="after">
+                        <img src="https://i.postimg.cc/RZjmkssB/GLON.png" alt="GLON">
+                        <div class="figcaption">RT on</div>
+                    </figure>
+                    <div class="slider"></div>
+                </div>
+                <!---------------슬라이더 인덱스-----링크 교체요망--------------->
+                <div class="slideSelector content video" data-index="4" style="height: 100%;">
+                    <iframe width="100%" height="100%"
+                        src="https://www.youtube.com/embed/CSrnkPSKBHY?si=9xWMTnDEnTooso80" title="Realtime RayTracing"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <div class="details">
+                    <div class="detailTop">
+                        <h3>01</h3>
+                        <h4>Ray<br>Tracing</h4>
+                    </div>
+                    <div class="detailTextbox render">
+                        <h5>Rendering System</h5>
+                        <p class="text-12px">
+                            Blender 4.1 Cycles Ray Tracing<br>
+                            <br>
+                            with <br>
+                            <br>
+                            RTX 4070Ti GDDR6 12GB<br>
+                            R5 5600X<br>
+                            DDR4 3200MHz 128GB<br>
+                            Systems<br>
+                        </p>
+                    </div>
+                    <div class="detailTextbox shader">
+                        <h5>Materials</h5>
+                        <p class="text-12px">
+                            Glass BSDF<br>
+                            Glossy BSDF<br>
+                            Refraction BSDF<br>
+                            <br>
+                            without Image Textures
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <section>
+                <p class="divinfo text-18px content">
+                    물체는 대부분 광원에서 나오는 빛을 반사하고, 그 빛이 우리 눈에 들어옴으로서 우리는 물체를 ‘본다’라는 행동을 할 수 있게 됩니다. 그리고, 우리의 눈을 모방한 카메라 또한
+                    마찬가지로, 조리개를 통해 들어온 빛이 필름에 닿아 색이 입혀지고, 그것이 사진이 되는 것이지요. 렌더링 또한 이와 같습니다.
+                    모델링 된 객체에 광선(Ray)을 쏘고, 그 광선이 가상의 카메라에 들어오면서 사진을 찍은것 같은 이미지를 완성하는 것 입니다. 레이 트레이싱(Ray Tracing)은 이렇게
+                    광선을 쏘고, 물체에 튕겨진 광선이 카메라로 들어오는 과정을 더욱 사실적이게 굴절시키고 산란하여 만드는 기술 입니다. 당연히,
+                    높은 사양의 그래픽 프로세서를 필요로 하지만, 그만큼 더 사실적인 묘사가 가능합니다.
+                </p>
+            </section>
+        </div>
+    </section>
+    <section>
+        <footer>
+            <ul class="footernav">
+                <li><a href="#" onclick="return false">이용약관</a></li>
+                <li class="line"></li>
+                <li><a href="#" onclick="return false">개인정보처리방침</a></li>
+                <li class="line"></li>
+                <li><a href="#" onclick="return false">문의하기</a></li>
+                <li class="line"></li>
+                <li><a href="#" onclick="return false">사용자문제신고센터</a></li>
+                <li class="line"></li>
+                <li><a href="#" onclick="return false">오늘은잘수있기를</a></li>
+            </ul>
+            <p class="footer-medium">뭔가 굉장나고 엄청한 라이선스와 개인정보 정책</p>
+            <p class="footer-small">E-mail : epwyqqu309@tukorea.ac.kr TEL : 010.8327.4785</p>
+        </footer>
+    </section>
+
+    <button class="scroll-btn prev">&lt;</button>
+    <button class="scroll-btn next">&gt;</button>
+
+    <div class="font-button-container">
+        <button class="fontPlus">+</button>
+        <button class="fontMinus">-</button>
+    </div>
+
+    <script>
+
+        const pageContents = [
+            {
+                topNumber: "01",
+                topName: "Ray<br>Tracing",
+                renderPlugin: "Blender 4.1 Cycles CPU Compute RT<br><br>with<br><br>RTX 4070Ti GDDR6 12GB<br>R5 5600X<br>DDR4 3200MHz 128GB<br>Systems<br>",
+                renderMaterials: "Glass BSDF<br>Glossy BSDF<br>Refraction BSDF<br><br>without Image Textures",
+                indexInfo: "물체는 대부분 광원에서 나오는 빛을 반사하고, 그 빛이 우리 눈에 들어옴으로서 우리는 물체를 ‘본다’라는 행동을 할 수 있게 됩니다. 그리고, 우리의 눈을 모방한 카메라 또한 마찬가지로, 조리개를 통해 들어온 빛이 필름에 닿아 색이 입혀지고, 그것이 사진이 되는 것이지요. 렌더링 또한 이와 같습니다. 모델링 된 객체에 광선(Ray)을 쏘고, 그 광선이 가상의 카메라에 들어오면서 사진을 찍은것 같은 이미지를 완성하는 것 입니다. 레이 트레이싱(Ray Tracing)은 이렇게 광선을 쏘고, 물체에 튕겨진 광선이 카메라로 들어오는 과정을 더욱 사실적이게 굴절시키고 산란하여 만드는 기술 입니다. 당연히, 높은 사양의 그래픽 프로세서를 필요로 하지만, 그만큼 더 사실적인 묘사가 가능합니다."
+            },
+            {
+                topNumber: "02",
+                topName: "Ambient<br>Occlusion",
+                renderPlugin: "Blender 4.1 EEVEE Engine<br><br>with<br><br>RTX 4070Ti GDDR6 12GB<br>R5 5600X<br>DDR4 3200MHz 128GB<br>Systems<br>",
+                renderMaterials: "Principled BSDF<br><br>without Image Textures",
+                indexInfo: "아주 밝지 않은 공간에서, 빛을 적게 받는 구석이나 모서리의 틈은 유난히 어둡게 보이는 특성이 있습니다. 몰론, 실제로는 그렇지 않지만 우리의 뇌가 일으키는 착시의 일종이라고 볼 수 있습니다. 그래서, 그래픽 기술자들은 모퉁이나 좁은 틈 사이로 들어가는 적은 양의 빛을 과장되게 감소시켜 더욱 사실적인 공간감을 줄 수 있는 기술을 만들었습니다. 그 기술의 이름이 바로 앰비언트 오클루전(AO라는 이름으로도 잘 알려져있죠)입니다. 정확하게는 광원으로부터 얼마나 많이 노출되는지의 정도에 따라 어두움을 더하는 기술이지만 말이죠. 간단하게 생각한다면, 운동장 한 가운데의 축구공, 그리고 운동장의 배수로 구석은 같은 밝기로 표현되면 안되겠죠. 그런 세세한 디테일이 결과의 차이를 만듭니다."
+            },
+            {
+                topNumber: "03",
+                topName: "Global<br>illumination",
+                renderPlugin: "Blender 4.1 Cycles GPU Compute RT<br><br>with<br><br>RTX 4070Ti GDDR6 12GB<br>R5 5600X<br>DDR4 3200MHz 128GB<br>Systems<br>",
+                renderMaterials: "Glass BSDF<br>Diffuse BSDF<br>Volumic Shader<br><br>without Image Textures",
+                indexInfo: "물체에 반사된 빛은 또 다른 광원이 되어 다른 물체를 볼 수 있게 만들어 줄 수 있습니다. 하얀색 방이 유난히 밝다거나, 간접조명이 은은하고 아늑한 분위기를 주는 등, 다양한 예시를 실상황에서 볼 수 있습니다. 이렇게 광원이 아닌 요소들로부터 나오는 빛을 활용하는 기술을 글로벌 일루미네이션, 또는 전역조명이라고 부릅니다. 아무리 조명을 추가해도 어두운 복도, 실사와 같이 꾸며놓은 아늑한 수면등과 침실이 칙칙해 보이는 문제를 모두 해결할 수 있는 광원효과로, Diffuse, Ambient Occlusion 등의 광원관련 기술과 조합하면 매우 큰 시너지를 낼 수 있습니다."
+            },
+            {
+                topNumber: "04",
+                topName: "Realtime<br>Ray Tracing",
+                renderPlugin: "Unreal Engine 4",
+                renderMaterials: "Unreal Engine KR",
+                indexInfo: "앞서 소개된 레이 트레이싱은 컴퓨터에게도 버거운 고성능 연산을 요구합니다. 렌더링 시간을 3배 이상 증가시키는 고해상도 광원처리 기술이 담겨있으니까요. 하지만, 이러한 레이 트레이싱 기술을 초당 60프레임, 또는 그 이상을 요구하는 게이밍 환경에서 구현할 수도 있습니다. 복잡한 연산을 단순화하고, 레이 트레이싱을 위한 부동소수점 연산 능력에 특화된 고성능의 그래픽카드를 적용하면 가능합니다. 불과 수년 전에는 200만원 상당의 TITAN 그래픽 카드 4장을 사용해야 간신히 구현이 가능했지만, 현재는 40만원대의 그래픽카드로도 가능하게 되었습니다. NVIDIA 만세!"
+            },
+        ]
+
+
+        document.querySelectorAll(".comparison-slider").forEach((element) => {
+            const slider = element.querySelector(".slider");
+            const resizeElement = element.querySelector("figure:last-of-type");
+            if (!resizeElement) return;
+            const figcaption = {
+                first: element.querySelector("figure:first-of-type figcaption"),
+                second: element.querySelector("figure:last-of-type figcaption"),
+            };
+
+            const prevBtn = document.querySelector('.prev');
+            const nextBtn = document.querySelector('.next');
+
+            const sliderContents = Array.from(document.querySelectorAll('.jspart .slideSelector'));
+            const topNumberValue = document.querySelector('h3');
+            const topNameValue = document.querySelector('h4');
+            const renderPluginValue = document.querySelector('.render p');
+            const shaderPluginValue = document.querySelector('.shader p');
+            const indexInfoValue = document.querySelector('.divinfo');
+
+
+            const buttons = document.querySelectorAll('.jspart .btn');
+
+            let sizeText = 0;
+            const plusInput = document.querySelector("button.fontPlus");
+            const minusInput = document.querySelector("button.fontMinus");
+            const sizeClass = Array.from(document.querySelectorAll('p.text-18px'));
+
+            let k = 0;
+
+            plusInput.addEventListener("click", function (k) {
+                sizeText = sizeText + 0.03;
+                sizeClass.forEach(divinfo => divinfo.style.fontSize = 0.9375 + sizeText + "vw");
+            })
+            minusInput.addEventListener("click", function (k) {
+                sizeText = sizeText - 0.03;
+                sizeClass.forEach(divinfo => divinfo.style.fontSize = 0.9375 + sizeText + "vw");
+            })
+
+            window.addEventListener('resize', function () {
+                var windowCont = document.querySelector('.comparison-slider');
+                var windowDetail = document.querySelector('.details');
+                var contentsHeight = windowCont.clientHeight;
+                windowDetail.style.height = contentsHeight + 'px';
+            })
+
+            let nowIndex = 0;
+
+            /*페이드 스킬을 구현해보려고 했으나 실패*/
+
+            showSlideContent(nowIndex);
+            function showSlideContent(index) {
+                sliderContents.forEach(content => content.style.display = 'none');
+                sliderContents[index].style.display = 'block';
+                sliderContents[index].classList.remove('fade-out');
+                sliderContents[index].classList.add('fade-in');
+            }
+
+            prevBtn.addEventListener('click', function () {
+                nowIndex = (nowIndex - 1 + sliderContents.length) % sliderContents.length;
+                showSlideContent(nowIndex);
+                updateButtonState(nowIndex);
+                topNumberValue.innerHTML = pageContents[nowIndex].topNumber;
+                topNameValue.innerHTML = pageContents[nowIndex].topName;
+                renderPluginValue.innerHTML = pageContents[nowIndex].renderPlugin;
+                shaderPluginValue.innerHTML = pageContents[nowIndex].renderMaterials;
+                indexInfoValue.innerHTML = pageContents[nowIndex].indexInfo;
+            })
+
+            nextBtn.addEventListener('click', function () {
+                nowIndex = (nowIndex + 1) % sliderContents.length;
+                showSlideContent(nowIndex);
+                updateButtonState(nowIndex);
+                topNumberValue.innerHTML = pageContents[nowIndex].topNumber;
+                topNameValue.innerHTML = pageContents[nowIndex].topName;
+                renderPluginValue.innerHTML = pageContents[nowIndex].renderPlugin;
+                shaderPluginValue.innerHTML = pageContents[nowIndex].renderMaterials;
+                indexInfoValue.innerHTML = pageContents[nowIndex].indexInfo;
+            })
+
+            buttons.forEach((button, index) => {
+                button.addEventListener('click', () => {
+                    const navIndex = +button.getAttribute('data-navIndex');
+
+                    nowIndex = navIndex - 1;
+                    showSlideContent(nowIndex);
+
+                    buttons.forEach(btn => {
+                        btn.classList.remove('selected');
+                        btn.classList.add('unselected');
+                    });
+
+                    button.classList.remove('unselected');
+                    button.classList.add('selected');
+                });
+            });
+
+            let isDragging = false;
+
+            const startDragging = () => {
+                isDragging = true;
+                element.classList.add("dragging");
+            };
+
+            const stopDragging = () => {
+                isDragging = false;
+                element.classList.remove("dragging");
+            };
+
+            const slideImage = (event) => {
+                if (isDragging) {
+                    const x = event.clientX - element.getBoundingClientRect().left;
+                    let percentage = (x / element.offsetWidth) * 100;
+
+                    if (percentage >= 100) {
+                        percentage = 100;
+                    }
+                    if (percentage <= 0) {
+                        percentage = 0;
+                    }
+
+                    slider.style.left = `${percentage}%`;
+                    resizeElement.style.clipPath = `polygon(${percentage}% 0, 100% 0, 100% 100%, ${percentage}% 100%)`;
+
+                    if (figcaption.first) {
+                        if (x <= figcaption.first.offsetWidth) {
+                            figcaption.first.classList.add("hide");
+                        } else {
+                            figcaption.first.classList.remove("hide");
+                        }
+                    }
+
+                    if (figcaption.second) {
+                        if (element.offsetWidth - x <= figcaption.second.offsetWidth) {
+                            figcaption.second.classList.add("hide");
+                        } else {
+                            figcaption.second.classList.remove("hide");
+                        }
+                    }
+                }
+            };
+
+            function updateButtonState(index) {
+                buttons.forEach((button, i) => {
+                    if (i === index) {
+                        button.classList.remove('unselected');
+                        button.classList.add('selected');
+                    }
+                    else {
+                        button.classList.remove('selected');
+                        button.classList.add('unselected');
+                    }
+                })
+            }
+
+            slider.addEventListener("mousedown", startDragging);
+            slider.addEventListener("touchstart", startDragging);
+            document.addEventListener("mouseup", stopDragging);
+            document.addEventListener("touchend", stopDragging);
+            document.addEventListener("mousemove", slideImage);
+            document.addEventListener("touchmove", slideImage);
+        });
+
+    </script>
+</body>
+
+</html>

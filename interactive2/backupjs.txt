@@ -1,0 +1,408 @@
+const majorArcana = [
+    { number: 0, name: "The Fool", keyword: "beginnings", imageLink: "https://i.postimg.cc/cHXdnnms/0.png" },
+    { number: 1, name: "The Magician", keyword: "manifestation", imageLink: "https://i.postimg.cc/j5ss2Xyg/1.png" },
+    { number: 2, name: "The High Priestess", keyword: "intuition", imageLink: "https://i.postimg.cc/bv0yqMSS/2.png" },
+    { number: 3, name: "The Empress", keyword: "nurturing", imageLink: "https://i.postimg.cc/YCW2sjp3/3.png" },
+    { number: 4, name: "The Emperor", keyword: "authority", imageLink: "https://i.postimg.cc/pdMVbxrt/4.png" },
+    { number: 5, name: "The Hierophant", keyword: "tradition", imageLink: "https://i.postimg.cc/qMYMw2dq/5.png" },
+    { number: 6, name: "The Lovers", keyword: "relationships", imageLink: "https://i.postimg.cc/Gh9mvqV6/6.png" },
+    { number: 7, name: "The Chariot", keyword: "willpower", imageLink: "https://i.postimg.cc/Wp54DQWM/7.png" },
+    { number: 8, name: "Strength", keyword: "courage", imageLink: "https://i.postimg.cc/brVYKtD6/8.png" },
+    { number: 9, name: "The Hermit", keyword: "introspection", imageLink: "https://i.postimg.cc/tJ4CS5TZ/9.png" },
+    { number: 10, name: "Wheel of Fortune", keyword: "destiny", imageLink: "https://i.postimg.cc/B6gnByqf/10.png" },
+    { number: 11, name: "Justice", keyword: "balance", imageLink: "https://i.postimg.cc/rmcpWc29/11.png" },
+    { number: 12, name: "The Hanged Man", keyword: "sacrifice", imageLink: "https://i.postimg.cc/vTYcRyPm/12.png" },
+    { number: 13, name: "Death", keyword: "transformation", imageLink: "https://i.postimg.cc/q72RzqSR/13.png" },
+    { number: 14, name: "Temperance", keyword: "moderation", imageLink: "https://i.postimg.cc/L8YhFNVj/14.png" },
+    { number: 15, name: "The Devil", keyword: "bondage", imageLink: "https://i.postimg.cc/HsPjNfbp/15.png" },
+    { number: 16, name: "The Tower", keyword: "disaster", imageLink: "https://i.postimg.cc/HkqnYXSR/16.png" },
+    { number: 17, name: "The Star", keyword: "hope", imageLink: "https://i.postimg.cc/2y03rtJ7/17.png" },
+    { number: 18, name: "The Moon", keyword: "illusion", imageLink: "https://i.postimg.cc/NM75PFkV/18.png" },
+    { number: 19, name: "The Sun", keyword: "happiness", imageLink: "https://i.postimg.cc/c4JrXsg9/19.png" },
+    { number: 20, name: "Judgement", keyword: "rebirth", imageLink: "https://i.postimg.cc/Kcf1PKz3/20.png" },
+    { number: 21, name: "The World", keyword: "fulfillment", imageLink: "https://i.postimg.cc/PxkC4YYY/21.png" }
+];
+
+/*GPT님 단순 노동을 도와줘서 감사합니다...*/
+const menuTag = document.querySelector('.open-menu');
+const xTag = document.querySelector('.close-menu');
+const asideTag = document.querySelector('aside');
+const pTags = document.querySelectorAll('aside p');
+const playboard = document.querySelector('.playboard');
+const cards = document.querySelectorAll('.card');
+const cardPaint = document.querySelectorAll('.card-back');
+
+let drawCards = []; //드로우 된 카드를 기록합니다
+
+menuTag.addEventListener("click", function () { //네비게이션 햄버거를 누르면 네비가 튀어나옵니다. 토글 대신 add remove를 썼습니다.
+    asideTag.classList.add('visible');
+    asideTag.classList.remove('invisible');
+    asideTag.style.transform = 'translateX(' + 0 + 'px)';
+    pTags.forEach(pTag => {
+        pTag.classList.add('visible');
+        pTag.classList.remove('invisible');
+    });
+    xTag.classList.add('visible');
+    xTag.classList.remove('invisible');
+});
+
+xTag.addEventListener("click", function () { //X를 누르면 네비가 들어갑니니다. 토글 대신 add remove를 이하생략.
+    asideTag.style.transform = 'translateX(' + -240 + 'px)';
+    pTags.forEach(pTag => {
+        pTag.classList.remove('visible');
+        pTag.classList.add('invisible');
+    });
+    xTag.classList.add('invisible');
+    xTag.classList.remove('visible');
+});
+
+function getRandomCard() { //랜덤한 카드를 뽑습니다. 중복되지 않게 조심해서!
+    let randomCard;
+    for (let i = 0; i < majorArcana.length; i++) {
+        const randomIndex = Math.floor(Math.random() * majorArcana.length);
+        randomCard = majorArcana[randomIndex];
+        if (!drawCards.includes(randomCard)) { //임의로 뽑은 카드가 기존 카드와 일치하지 않으면?
+            drawCards.push(randomCard); //카드를 배열로 넣어줍니다
+            return randomCard;
+        }
+    }
+}
+
+let cardX;
+let allCardsDrawn = false;
+
+let mouseX = 0;
+let mouseY = 0;
+
+document.addEventListener('mousemove', (event) => { //마우스 움직임을 가져옵니다.
+    mouseX = event.clientX;
+    mouseY = event.clientY;
+});
+
+function checkAllCardsDrawn() { // 모든 카드가 뒤집어졌는지 확인하는 함수입니다.
+    return Array.from(cards).every(card => card.classList.contains('drawed'));
+}
+
+function moveToLeft() { // 카드들을 완쪽으로 이동시킵니다.
+    cards.forEach((card, index) => {
+        setTimeout(() => {
+            card.style.transition = 'transform 0.5s ease'; // 움직임이 자연스럽게 보이도록 transition 추가
+            if (index > 2) {
+                cardX = ((index + 1) * 120) - 1010;
+                card.style.transform = `translate(${cardX}% , 130%)`; // 카드가 아랫줄로
+            }
+            else {
+                cardX = ((index - 2) * 120) - 300;
+                card.style.transform = `translate(${cardX}% , 0%)`; // 카드가 윗줄로
+            }
+        }, index * 100); // 각 카드마다 0.1초씩 지연시간 추가하여 순차적으로 이동
+    });
+}
+
+function enlargeCard(card) { //카드를 크게 보여줍니다. 
+    card.style.transition = 'all 0.5s ease'; // 움직임이 자연스럽게 보이도록 transition
+    card.style.transform = 'scale(2)'; //배율은 여기 입력합니다.
+    card.classList.add('enlarged-card');
+    card.style.left = '50vw';
+    // console.log('zoooom')
+}
+
+function ensmallCard(card) {
+    card.style.transform = 'scale(1)'; //배율은 여기 입력합니다.
+    card.classList.remove('enlarged-card');
+    // console.log('smaaaaal');
+}
+
+cards.forEach((card, index) => { //카드 객체 전체에 대해...
+
+    card.addEventListener('click', () => { // 객채가 draw 되었을때는 클릭하면 Flip
+        if (allCardsDrawn) {
+            if (card.classList.contains('enlarged-card')){ //카드가 커졌는지?
+                ensmallCard(card); //카드 줄이기
+                if (index > 2) {
+                    cardX = ((index + 1) * 120) - 980;
+                    card.style.transform = `translate(${cardX}% , 130%)`; // 카드가 아랫줄로 원위치
+                    console.log(`now transform is ${cardX}%`)
+                }
+                else {
+                    cardX = ((index - 2) * 120) - 260;
+                    card.style.transform = `translate(${cardX}% , 0%)`; // 카드가 윗줄로 원위치
+                    console.log(`now transform is ${cardX}%`)
+                }
+            }
+            else{
+                enlargeCard(card);
+            }
+        }
+        else {
+            if (!card.classList.contains('drawed')) { // drawed 클래스를 가지고 있지 않다면?
+
+                const randomCard = getRandomCard();
+                const cardBack = card.querySelector('.card-back');
+                cardBack.style.backgroundImage = `url('${randomCard.imageLink}')`;
+                card.classList.add('drawed');
+                card.classList.add('flip');
+                const drawingBoard = document.querySelector('.board-drawing');
+                drawingBoard.appendChild(card); //눌린 카드는 drawingboard로 이동
+
+                if (checkAllCardsDrawn()) { // 모든 카드가 뒤집혔는지 확인
+                    setTimeout(() => {
+                        moveToLeft(); // 1초 후에 모든 카드를 왼쪽으로 이동
+                        allCardsDrawn = true;
+                    }, 1000);
+                }
+
+                if (index > 2) {
+                    cardX = ((index + 1) * 120) - 900;
+                    card.style.transform = `translate(${cardX}% , 130%)`; // 카드가 아랫줄로
+                    // card.classList.
+                }
+                else {
+                    cardX = ((index - 2) * 120) - 190;
+                    card.style.transform = `translate(${cardX}% , 0%)`; // 카드가 윗줄로
+                }
+            }
+        }
+    });
+
+    card.addEventListener('mouseover', () => { // 객채가 mouseover 되었을때는 샤라락 펼쳐집니다.
+        cards.forEach((card, index) => {
+            if (!card.classList.contains('moved') && !card.classList.contains('drawed')) { //!는 부정연산자입니다. 카드가 이동한게 거짓인지를 검사한다는 뜻입니다.  
+                card.style.left = 80 - (index * 0.5) + '%';
+                card.style.transform = `rotate( ${index * -1.5}deg )`;
+                card.classList.add('moved');
+            }
+        });
+    });
+
+    card.addEventListener('mouseout', () => {// 객채가 mouseout 되었을때는 샤라락 접힙니다.
+        cards.forEach((card) => {
+            if (card.classList.contains('moved') && !card.classList.contains('drawed')) {
+                card.style.transform = `rotate( ${0}deg )`;
+                card.style.left = 80 + '%';
+                card.classList.remove('moved');
+            }
+        })
+    })
+});
+
+const resetButton = document.getElementById('resetButton'); // 버튼 요소 가져오기
+
+function resetCards() {
+    drawCards = []; // drawCards 배열 초기화
+    cards.forEach((card) => {
+        allCardsDrawn = false;
+        card.classList.remove('drawed');
+        card.classList.remove('flip');
+        card.classList.remove('enlarged-card');
+        card.style.transition = '';
+        card.style.transform = '';
+        card.style.top = '';
+        card.style.left = ''; // 카드의 속성들 초기화
+        card.querySelector('.card-back').style.backgroundImage = ''; // 카드 뒷면 이미지 초기화
+    });
+}
+
+resetButton.addEventListener('click', () => {
+    resetCards(); // 리셋 과정 실행
+
+    setTimeout(() => {
+        resetCards(); // 두 번째 리셋 과정 실행
+    }, 100); // 100ms 딜레이 후에 실행
+});
+
+
+//아래는 그리드 사용
+
+const majorArcana = [
+    { number: 0, name: "The Fool", keyword: "beginnings", imageLink: "https://i.postimg.cc/cHXdnnms/0.png" },
+    { number: 1, name: "The Magician", keyword: "manifestation", imageLink: "https://i.postimg.cc/j5ss2Xyg/1.png" },
+    { number: 2, name: "The High Priestess", keyword: "intuition", imageLink: "https://i.postimg.cc/bv0yqMSS/2.png" },
+    { number: 3, name: "The Empress", keyword: "nurturing", imageLink: "https://i.postimg.cc/YCW2sjp3/3.png" },
+    { number: 4, name: "The Emperor", keyword: "authority", imageLink: "https://i.postimg.cc/pdMVbxrt/4.png" },
+    { number: 5, name: "The Hierophant", keyword: "tradition", imageLink: "https://i.postimg.cc/qMYMw2dq/5.png" },
+    { number: 6, name: "The Lovers", keyword: "relationships", imageLink: "https://i.postimg.cc/Gh9mvqV6/6.png" },
+    { number: 7, name: "The Chariot", keyword: "willpower", imageLink: "https://i.postimg.cc/Wp54DQWM/7.png" },
+    { number: 8, name: "Strength", keyword: "courage", imageLink: "https://i.postimg.cc/brVYKtD6/8.png" },
+    { number: 9, name: "The Hermit", keyword: "introspection", imageLink: "https://i.postimg.cc/tJ4CS5TZ/9.png" },
+    { number: 10, name: "Wheel of Fortune", keyword: "destiny", imageLink: "https://i.postimg.cc/B6gnByqf/10.png" },
+    { number: 11, name: "Justice", keyword: "balance", imageLink: "https://i.postimg.cc/rmcpWc29/11.png" },
+    { number: 12, name: "The Hanged Man", keyword: "sacrifice", imageLink: "https://i.postimg.cc/vTYcRyPm/12.png" },
+    { number: 13, name: "Death", keyword: "transformation", imageLink: "https://i.postimg.cc/q72RzqSR/13.png" },
+    { number: 14, name: "Temperance", keyword: "moderation", imageLink: "https://i.postimg.cc/L8YhFNVj/14.png" },
+    { number: 15, name: "The Devil", keyword: "bondage", imageLink: "https://i.postimg.cc/HsPjNfbp/15.png" },
+    { number: 16, name: "The Tower", keyword: "disaster", imageLink: "https://i.postimg.cc/HkqnYXSR/16.png" },
+    { number: 17, name: "The Star", keyword: "hope", imageLink: "https://i.postimg.cc/2y03rtJ7/17.png" },
+    { number: 18, name: "The Moon", keyword: "illusion", imageLink: "https://i.postimg.cc/NM75PFkV/18.png" },
+    { number: 19, name: "The Sun", keyword: "happiness", imageLink: "https://i.postimg.cc/c4JrXsg9/19.png" },
+    { number: 20, name: "Judgement", keyword: "rebirth", imageLink: "https://i.postimg.cc/Kcf1PKz3/20.png" },
+    { number: 21, name: "The World", keyword: "fulfillment", imageLink: "https://i.postimg.cc/PxkC4YYY/21.png" }
+];
+
+/*GPT님 단순 노동을 도와줘서 감사합니다...*/
+const menuTag = document.querySelector('.open-menu');
+const xTag = document.querySelector('.close-menu');
+const asideTag = document.querySelector('aside');
+const pTags = document.querySelectorAll('aside p');
+
+const playboard = document.querySelector('.playboard');
+const cards = document.querySelectorAll('.card');
+const cardPaint = document.querySelectorAll('.card-back');
+const cardDrawn = document.querySelector('.board-drawing');
+const cardSetted = document.querySelector('.board-cards');
+
+let drawCards = []; //드로우 된 카드를 기록합니다
+
+menuTag.addEventListener("click", function () { //네비게이션 햄버거를 누르면 네비가 튀어나옵니다. 토글 대신 add remove를 썼습니다.
+    asideTag.classList.add('visible');
+    asideTag.classList.remove('invisible');
+    asideTag.style.transform = 'translateX(' + 0 + 'px)';
+    pTags.forEach(pTag => {
+        pTag.classList.add('visible');
+        pTag.classList.remove('invisible');
+    });
+    xTag.classList.add('visible');
+    xTag.classList.remove('invisible');
+});
+
+xTag.addEventListener("click", function () { //X를 누르면 네비가 들어갑니니다. 토글 대신 add remove를 이하생략.
+    asideTag.style.transform = 'translateX(' + -240 + 'px)';
+    pTags.forEach(pTag => {
+        pTag.classList.remove('visible');
+        pTag.classList.add('invisible');
+    });
+    xTag.classList.add('invisible');
+    xTag.classList.remove('visible');
+});
+
+function getRandomCard() { //랜덤한 카드를 뽑습니다. 중복되지 않게 조심해서!
+    let randomCard;
+    for (let i = 0; i < majorArcana.length; i++) {
+        const randomIndex = Math.floor(Math.random() * majorArcana.length);
+        randomCard = majorArcana[randomIndex];
+        if (!drawCards.includes(randomCard)) { //임의로 뽑은 카드가 기존 카드와 일치하지 않으면?
+            drawCards.push(randomCard); //카드를 배열로 넣어줍니다
+            return randomCard;
+        }
+    }
+}
+let allCardsDrawn = false;
+
+let mouseX = 0;
+let mouseY = 0;
+
+document.addEventListener('mousemove', (event) => { //마우스 움직임을 가져옵니다. 어디에 쓰지?
+    mouseX = event.clientX;
+    mouseY = event.clientY;
+});
+
+function checkAllCardsDrawn() { // 모든 카드가 뒤집어졌는지 확인하는 함수입니다.
+    return Array.from(cards).every(card => card.classList.contains('drawed'));
+}
+
+function moveToLeft() { // 카드들을 완쪽으로 이동시킵니다.
+    cards.forEach((card, index) => {
+        setTimeout(() => {
+            card.style.transition = 'transform 0.5s ease'; // 움직임이 자연스럽게 보이도록 transition 추가
+            playboard.style.padding = '0px 400px 0px 0px'
+            }, index * 100); // 각 카드마다 0.1초씩 지연시간 추가하여 순차적으로 이동
+    });
+    allCardsDrawn = true; // 모든 카드가 이동된 후에 allCardsDrawn을 true로 설정
+    allCardsDrawn = checkAllCardsDrawn(); // 모든 카드가 이동된 후에도 올바른지 다시 확인
+}
+
+function enlargeCard(card) {
+    card.classList.add('enlarged-card');
+    card.style.left = '50vw';
+    // console.log('zoooom')
+}
+
+function ensmallCard(card) {
+    card.style.transform = 'scale(1)'; //배율은 여기 입력합니다.
+    card.classList.remove('enlarged-card');
+    // console.log('smaaaaal');
+}
+
+cards.forEach((card, index) => { //카드 객체 전체에 대해... index는 카드 넘버
+
+    //카드 총 6장이 전부 깔린 상태인지 일단 검사(allcardsdrawn이 true인가?)
+    //아니라면 카드들이 board-drawing으로 이동하게 조치
+    //맞다면 클릭시 확대 축소 기능이 활성화 되게 조치
+
+    card.addEventListener('click', () => {
+        console.log(allCardsDrawn);
+        // var cardParentName = cards.parentNode.classList[0]; //카드들의 부모 이름을 검사
+        if (allCardsDrawn) {
+            if (card.classList.contains('drawed')) {
+                enlargeCard(card);
+            }
+            else {
+                ensmallCard(card);
+            }
+        }
+        else {
+            card.style.transform = '';
+            const randomCard = getRandomCard();
+            const cardBack = card.querySelector('.card-back');
+            cardBack.style.backgroundImage = `url('${randomCard.imageLink}')`;
+            card.classList.add('drawed');
+
+            cardDrawn.appendChild(card.cloneNode(true)); // 부모변경
+            card.remove(); //기존카드는 제거
+            console.log(allCardsDrawn);
+
+            if (checkAllCardsDrawn()) { // 모든 카드가 뒤집혔는지 확인
+                setTimeout(() => {
+                    moveToLeft(); // 1초 후에 모든 카드를 왼쪽으로 이동
+                    setTimeout(() => {
+                        allCardsDrawn = checkAllCardsDrawn(); // 모든 카드가 이동되었는지 확인
+                    }, 1000);
+                }, 1000);
+            }
+        }
+    })
+
+    card.addEventListener('mouseover', () => { // 객채가 mouseover 되었을때는 샤라락 펼쳐집니다.
+        cards.forEach((card, index) => {
+            if (!card.classList.contains('moved') && !card.classList.contains('drawed')) { //!는 부정연산자입니다. 카드가 이동한게 거짓인지를 검사한다는 뜻입니다.  
+                card.style.left = 80 - (index * 0.5) + '%';
+                card.style.transform = `rotate( ${index * -1.5}deg )`;
+                card.classList.add('moved');
+            }
+        });
+    });
+
+    card.addEventListener('mouseout', () => {// 객채가 mouseout 되었을때는 샤라락 접힙니다.
+        cards.forEach((card) => {
+            if (card.classList.contains('moved') && !card.classList.contains('drawed')) {
+                card.style.transform = `rotate( ${0}deg )`;
+                card.style.left = 80 + '%';
+                card.classList.remove('moved');
+            }
+        })
+    })
+});
+
+const resetButton = document.getElementById('resetButton'); // 버튼 요소 가져오기
+
+function resetCards() {
+    drawCards = []; // drawCards 배열 초기화
+    cards.forEach((card) => {
+        allCardsDrawn = false;
+        card.classList.remove('drawed');
+        card.classList.remove('flip');
+        card.classList.remove('enlarged-card');
+        card.style.transition = '';
+        card.style.transform = '';
+        card.style.top = '';
+        card.style.left = ''; // 카드의 속성들 초기화
+        card.querySelector('.card-back').style.backgroundImage = ''; // 카드 뒷면 이미지 초기화
+        cardSetted.appendChild(card); // 각 카드를 원래 부모의 자식으로 이동
+    });
+    allCardsDrawn = false;
+}
+
+resetButton.addEventListener('click', () => {
+    resetCards(); // 리셋 과정 실행
+    cardDrawn.innerHTML = '';
+});

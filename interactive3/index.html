@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Size Adjuster</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@100..900&family=Noto+Serif+KR&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav class="nav-area">
+        <div class="css-properties">
+            <h2>CSS 생성기</h2>
+            <textarea id="css-properties" readonly></textarea>
+            <button id="apply-css-btn">Apply CSS</button>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="input-group">
+            <label class="box-radio-input"><input type="radio" name="font-type" value="serif" checked="checked"><span>serif</span></label>
+            <label class="box-radio-input"><input type="radio" name="font-type" value="sans-serif"><span>Sans-serif</span></label>
+            <label class="box-radio-input"><input type="radio" name="font-type" value="handwriting"><span>Handwrite</span></label>
+        </div>
+        <div class="setting-tab setting-display">
+            <div class="input-group">
+                <label for="font-size">Font Size:</label>
+                <input type="range" id="font-size" min="10" max="50" value="20">
+                <span class="font-value">20</span>px
+            </div>
+            <div class="input-group">
+                <label><input type="checkbox" id="bold"> Bold</label>
+                <label><input type="checkbox" id="italic"> Italic</label>
+            </div>
+            <div class="input-group">
+                <label for="letter-spacing">Letter Spacing:</label>
+                <input type="range" id="letter-spacing" min="-1" max="3" step="0.1" value="0">
+                <span class="spacing-value">0</span>px
+            </div>
+            <!-- Add more settings here as needed -->
+        </div>
+        <div class="setting-tab setting-hand">
+            <div class="input-group">
+                <label for="hand-font-size">Font Size: <span class="hand-font-value"></span></label>
+                <input type="range" id="hand-font-size" min="10" max="50" value="20">
+            </div>
+            <div class="input-group">
+                <label for="hand-letter-spacing">Letter Spacing: <span class="hand-spacing-value"></span></label>
+                <input type="range" id="hand-letter-spacing" min="-1" max="3" step="0.1" value="0">
+            </div>
+        </div>
+        <div class="preview-text" id="preview-text">Your preview text will appear here.</div>
+        <input type="text" id="input-text" placeholder="Enter text here for preview">
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

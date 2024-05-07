@@ -1,0 +1,407 @@
+body{
+    width: 66.666vw;
+    margin: 0 auto;
+    background-color: #e6e6e6;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+.font-button-container {
+    position: fixed;
+    display: flex;
+    right: 10vw;
+    bottom: 8vw;
+    flex-direction: column;
+    justify-content: center;
+    width: 3vw;
+    gap: 0.2vw;
+}
+
+.fontPlus {
+    width: 2.5vw;
+    height: 2.5vw;
+    border-radius: 50%;
+    border: 0.1vw solid #ff1800;
+    background-color: #ed1b2f;
+    transition: 150ms;
+}
+
+.fontMinus {
+    width: 2.5vw;
+    height: 2.5vw;
+    border-radius: 50%;
+    border: 0.1vw solid #ff1800;
+    background-color: #ed1b2f;
+    transition: 150ms;
+}
+
+.fontMinus:hover{
+    background-color: #e95723;
+    border: 0.1vw solid #e95723;
+    transition: 150ms;
+}
+
+.fontMinus:active{
+    background-color: #ffffff;
+    transition: 150ms;
+}
+
+.fontPlus:hover{
+    background-color: #e95723;
+    border: 0.1vw solid #e95723;
+    transition: 150ms;
+}
+
+.fontPlus:active{
+    background-color: #ffffff;
+    transition: 150ms;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    height: 31.25vw;
+}
+
+.details {
+    height: 100%;
+    max-width: 16.666vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.detailTop{
+    position: relative;
+    width: 16.666vw;
+}
+
+.detailTextbox:last-child{
+    align-self: flex-end;
+}
+
+.render {
+    display: block;
+}
+
+.shader {
+    display: block;
+}
+
+.divinfo{
+    margin-top: 2vw;
+}
+
+.scroll-btn {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 0.5vw;
+    cursor: pointer;
+    z-index: 1000;
+    position: absolute;
+  }
+
+.prev {
+    position: fixed;
+    left: 0;
+    top: 50vh;
+  }
+
+.next {
+    position: fixed;
+    right: 0;
+    top: 50vh;
+  }
+
+h1 {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 0 12.5vw;
+    height: 5vw;
+    width: 100vw;
+    margin-left: -25vw;
+    margin: 0 auto;
+    font-size: 1.5vw;
+    text-align: left;
+    justify-content: left;
+    align-items: center;
+    background-color: rgba(128, 128, 128, 0.9);
+    color: #f1f1f1;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+h2 {
+    display: flex;
+    margin: 0 auto;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.666vw;
+    text-align: center;
+    border-bottom: solid 1px;
+}
+
+h3 {
+    display: flex;
+    position: relative;
+    justify-content: left;
+    align-items: flex-start;
+    margin-left: -3.3vw;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 12.5vw;
+    text-align: left;
+    color: white;
+    z-index: -1000;
+    letter-spacing: -1.25vw;
+    line-height: 100%;
+}
+
+h4 {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 0;
+    font-size: 1.66vw;
+    text-align: right;
+    color: #606060;
+    font-weight: bold;
+    max-width: 10vw;
+    overflow-wrap: normal;
+}
+
+h5 {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin: 0;
+    font-size: 1.0417vw;
+    text-align: right;
+    color: #808080;
+    font-weight: bold;
+}
+
+.text-18px {
+    text-align: justify;
+    font-size: 0.9375vw;
+    font-weight: 400;
+}
+
+.description .text-18px {
+    text-align: justify;
+    margin-bottom: 1.302vw;
+}
+
+.text-12px {
+    font-size: 0.625vw;
+    color: #808080;
+    font-weight: 200;
+    text-align: justify;
+}
+
+.detailTextbox .text-12px {
+    text-align: right;
+}
+
+
+ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    gap: 1.111vw;
+}
+
+ul li{
+    list-style: none;
+    pointer-events: auto;
+}
+
+ul li .btn{
+    border: 0px;
+    background: #e5e5e5;
+    font-size: 0.9375vw;
+    font-weight: bold;
+    padding: 0.5vw;
+    transition: 100ms;
+    border-bottom: 1px solid;
+}
+
+ul li .btn:hover {
+    background-color: #ffffff;
+    color: #202020;
+    cursor: pointer;
+    transition: 300ms;
+    border-radius: 0.5vw;
+}
+
+ul li .btn:active {
+    background-color: #CFCFCF;
+    transition: 150ms;
+}
+
+.unselected {
+    color: #ffffff;
+}
+
+.selected {
+    color: #202020;
+}
+
+footer {
+    background-color: #333;
+    color: #aaaaaa;
+    text-align: center;
+    padding: 2vw 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    margin-top: 6vw;
+}
+
+/* Footer 텍스트 크기 */
+
+footer .footernav{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+footer .footernav li{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+    color: #ffffff;
+}
+
+footer .footernav li a{
+    color: #ffffff;
+    text-decoration: none;
+}
+
+/*--------------------------------슬라이더 전용---------------------------------*/
+
+.comparison-slider {
+    position: relative;
+    width: 100%;
+    margin: auto;
+    overflow: hidden;
+    touch-action: pan-x;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    top: 0;
+}
+
+.video {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    top: 0;
+    margin: 0;
+}
+
+.comparison-slider > figure {
+    margin: 0;
+}
+
+.comparison-slider > figure:last-of-type {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+}
+
+.comparison-slider > figure > img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.comparison-slider > figure > .figcaption {
+    position: absolute;
+    bottom: 0;
+    display: inline-block;
+    padding: 5px 10px;
+    line-height: 1.5;
+    background: rgba(30, 30, 30, 0.7);
+    max-width: 30%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #f1f1f1;
+    transition: opacity 0.35s, transform 0.35s;
+}
+
+.comparison-slider > figure:last-of-type > .figcaption {
+    right: 0;
+}
+
+.comparison-slider > figure > figcaption.hide {
+    opacity: 0;
+    transform: translate3d(-10px, 0, 0);
+}
+
+.comparison-slider > figure:last-of-type > .figcaption.hide {
+    transform: translate3d(10px, 0, 0);
+}
+
+.comparison-slider > .slider {
+    position: absolute;
+    top: calc(50% - 20px);
+    left: 50%;
+    display: flex;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    transform: translate3d(-20px, 0, 0);
+    background: #f1f1f1;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.45);
+    text-align: center;
+    cursor: grab;
+}
+
+.comparison-slider > .slider:hover {
+    background: #d7c4ec;
+    transition: 0.2s;
+}
+
+.comparison-slider.dragging,
+.comparison-slider.dragging > .slider {
+    cursor: grabbing;
+}
+
+.comparison-slider.dragging > .slider {
+    background: #bf86ff;
+}
+
+.comparison-slider > .slider > svg {
+    pointer-events: none;
+}
+
+/*--------------------------------슬라이더 전용 끝---------------------------------*/
+
+/*-----------------------------------Transition-----------------------------------*/
+
+.fade-in {
+    opacity: 1;
+    transition: 0.5s ease-in-out; 
+}
+
+.fade-out {
+    opacity: 0;
+    transition: 0.5s ease-in-out; 
+}
+
+/*페이드 스킬을 구현해보려고 했으나 실패*/
