@@ -1,15 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width='device-width', initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@100..900&family=Noto+Serif+KR&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@100..900&family=Noto+Serif+KR&display=swap"
+        rel="stylesheet">
     <title>Document</title>
 </head>
+
 <body>
+    <!--Loading Image-->
+    <div id="loading-screen">
+        <div id="loading-cover">
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+        </div>
+        <p class="loadingText">잠시만 기다려주세요</p>
+    </div>
+
     <div class="main">
-        <section class="A wrap-section" data-id="1"></section>
+        <section class="A wrap-section" data-id="1">
+            <img src="mayor.png" alt="시장님">
+        </section>
         <section class="B wrap-section" data-id="2"></section>
         <section class="C wrap-section" data-id="3"></section>
         <section class="D wrap-section" data-id="4"></section>
@@ -17,4 +35,5 @@
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>
