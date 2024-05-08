@@ -2,3 +2,16 @@
     margin: 0;
     padding: 0;
 }
+
+body {
+    background-color: aqua;
+    width: 100vw;
+    height: 3600px;
+}
+
+.progress-bar {
+    width: 100px;
+    height: 24px;
+    background-color: blueviolet;
+    position: fixed;
+}
