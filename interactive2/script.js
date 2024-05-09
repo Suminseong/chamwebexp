@@ -294,3 +294,7 @@ resetButton.addEventListener('click', () => {
         resetButton.classList.remove('active');
     }, 300); // 100ms 딜레이 후에 실행
 });
+
+window.addEventListener('load', function() {
+    document.getElementById('loading-screen').style.display = 'none';
+});
