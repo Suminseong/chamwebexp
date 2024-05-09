@@ -1,202 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GitHub Main Page</title>
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-    }
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f6f8fa;
-  }
-
-  .container {
-    max-width: 1200px;
-    margin: 20px auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-gap: 20px;
-    padding: 0 20px;
-  }
-
-  .card {
-    background-color: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-
-  .img-wrapper {
-    position: relative;
-    width: 375px;
-    height: 375px;
-  }
-
-  .img-wrapper img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translate(50, 50);
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    margin: auto;
-  }
-
-  .card-content {
-    padding: 20px;
-  }
-
-  .card-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin: 0;
-    color: #333;
-  }
-
-  .card-description {
-    font-size: 14px;
-    color: #666;
-    margin-top: 10px;
-  }
-
-  
-#loading-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    z-index: 9999; /* 화면 최상단에 표시되도록 설정 */
-}
-
-#loading-cover {
-    display: flex;
-    width: 240px;
-    flex-direction: row;
-    margin-bottom: 15px;
-    justify-content: center;
-}
-
-.loading-dot {
-    width: 20px;
-    height: 20px;
-    background-color: #3498db;
-    border-radius: 50%;
-    animation: bounce 0.5s alternate infinite ease-in-out;
-    margin: 0 8px; /* 점 사이의 간격 조절 */
-}
-
-.loading-dot:nth-child(2) {
-    animation-delay: 0.2s;
-}
-.loading-dot:nth-child(3) {
-    animation-delay: 0.4s;
-}
-.loading-dot:nth-child(4) {
-    animation-delay: 0.6s;
-}
-.loading-dot:nth-child(5) {
-    animation-delay: 0.8s;
-}
-
-@keyframes bounce {
-    0% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(2px);
-    }
-    100%{
-        transform: translateY(20px);
-    }
-}
-
-.loadingText {
-    font-size: 1em;
-    color: #333;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="style_main.css">
+  <title>GitHub Main Page</title>
 </head>
-<body>
 
+<body>
   <div id="loading-screen">
     <div id="loading-cover">
-        <div class="loading-dot"></div>
-        <div class="loading-dot"></div>
-        <div class="loading-dot"></div>
-        <div class="loading-dot"></div>
-        <div class="loading-dot"></div>
+      <div class="loading-dot"></div>
+      <div class="loading-dot"></div>
+      <div class="loading-dot"></div>
+      <div class="loading-dot"></div>
+      <div class="loading-dot"></div>
     </div>
     <p class="loadingText">잠시만 기다려주세요</p>
-</div>
-
-<div class="container">
-  <div class="card" data-index="1">
-    <div class="img-wrapper"><img src="interactive1/index.png" alt="Thumbnail 1"></div>
-    <div class="card-content">
-      <h2 class="card-title">Project.1</h2>
-      <p class="card-description">이미지 슬라이더!</p>
-    </div>
   </div>
 
-  <div class="card" data-index="2">
-    <div class="img-wrapper"><img src="interactive2/index.png" alt="Thumbnail 2"></div>
-    <div class="card-content">
-      <h2 class="card-title">Project.2</h2>
-      <p class="card-description">타로카드로 점을 봐준다고??</p>
+  <header>
+
+    <div class="nav">
+      <span class="material-symbols-outlined open-menu visible">menu</span>
+      <aside>
+        <span class="material-symbols-outlined close-menu invisible">close</span>
+        <div class="heading menu">
+          <span class="emoji visible">🤔</span>
+          <p class="invisible">어쩌고저쩌고</p>
+        </div>
+        <div class="sub-heading menu">
+          <span class="emoji visible">🐚</span>
+          <p class="invisible">어쩌고저쩌고</p>
+        </div>
+        <div class="sub-heading menu">
+          <span class="emoji visible">🔮</span>
+          <p class="invisible">어쩌고저쩌고</p>
+        </div>
+        <div class="sub-heading menu">
+          <span class="emoji visible">🃏</span>
+          <p class="invisible">어쩌고저쩌고</p>
+        </div>
+      </aside>
+    </div>
+    <div class="editor">
+      <img src="/image-resource/logo_128.png" alt="Your Logo">
+    </div>
+
+  </header>
+
+  <div class="side-nav left"></div>
+
+  <div class="container">
+    <div class="card" data-index="1">
+      <div class="img-wrapper"><img src="interactive1/index.png" alt="Thumbnail 1"></div>
+      <div class="card-content">
+        <h2 class="card-title">Project.1</h2>
+        <p class="card-description">이미지 슬라이더!</p>
+      </div>
+    </div>
+
+    <div class="card" data-index="2">
+      <div class="img-wrapper"><img src="interactive2/index.png" alt="Thumbnail 2"></div>
+      <div class="card-content">
+        <h2 class="card-title">Project.2</h2>
+        <p class="card-description">타로카드로 점을 봐준다고??</p>
+      </div>
+    </div>
+
+    <div class="card" data-index="3">
+      <div class="img-wrapper"><img src="interactive3/index.png" alt="Thumbnail 3"></div>
+      <div class="card-content">
+        <h2 class="card-title">Project.3</h2>
+        <p class="card-description">폰트 스타일을 바꾸어보아요.</p>
+      </div>
+    </div>
+
+    <div class="card" data-index="4">
+      <div class="img-wrapper"><img src="interactive4/index.jpg" alt="Thumbnail 4"></div>
+      <div class="card-content">
+        <h2 class="card-title">Project.4</h2>
+        <p class="card-description">스크롤에 반응해보기.</p>
+      </div>
     </div>
   </div>
+  <script>
 
-  <div class="card" data-index="3">
-    <div class="img-wrapper"><img src="interactive3/index.png" alt="Thumbnail 3"></div>
-    <div class="card-content">
-      <h2 class="card-title">Project.3</h2>
-      <p class="card-description">폰트 스타일을 바꾸어보아요.</p>
-    </div>
-  </div>
+    const menuTag = document.querySelector('.open-menu');
+    const xTag = document.querySelector('.close-menu');
+    const asideTag = document.querySelector('aside');
+    const pTags = document.querySelectorAll('aside p');
 
-  <div class="card" data-index="4">
-    <div class="img-wrapper"><img src="interactive4/index.jpg" alt="Thumbnail 4"></div>
-    <div class="card-content">
-      <h2 class="card-title">Project.4</h2>
-      <p class="card-description">스크롤에 반응해보기.</p>
-    </div>
-  </div>
-</div>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-  // 모든 카드 요소를 가져옴
-  const cards = document.querySelectorAll(".card");
-
-  // 각 카드에 클릭 이벤트 리스너를 추가
-  cards.forEach(function(card) {
-    card.addEventListener("click", function() {
-      // 클릭된 카드의 data-index 값을 가져옴
-      const index = card.getAttribute("data-index");
-
-      // 해당하는 페이지 경로로 이동
-      window.location.href = `interactive${index}/index.html`;
+    menuTag.addEventListener("click", function () { //네비게이션 햄버거를 누르면 네비가 튀어나옵니다. 토글 대신 add remove를 썼습니다.
+      asideTag.classList.add('visible');
+      asideTag.classList.remove('invisible');
+      asideTag.style.transform = 'translateX(' + -30 + 'px)';
+      pTags.forEach(pTag => {
+        pTag.classList.add('visible');
+        pTag.classList.remove('invisible');
+      });
+      xTag.classList.add('visible');
+      xTag.classList.remove('invisible');
     });
-  });
-});
 
-//로딩탭입니다. 이미지, 페이지 등 뭔가 로딩중이라면 띄웁니다.
-window.addEventListener('load', function() {
-    document.getElementById('loading-screen').style.display = 'none';
-});
-</script>
+    xTag.addEventListener("click", function () { //X를 누르면 네비가 들어갑니니다. 토글 대신 add remove를 이하생략.
+      asideTag.style.transform = 'translateX(' + -200 + 'px)';
+      pTags.forEach(pTag => {
+        pTag.classList.remove('visible');
+        pTag.classList.add('invisible');
+      });
+      xTag.classList.add('invisible');
+      xTag.classList.remove('visible');
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      // 모든 카드 요소를 가져옴
+      const cards = document.querySelectorAll(".card");
+
+      // 각 카드에 클릭 이벤트 리스너를 추가
+      cards.forEach(function (card) {
+        card.addEventListener("click", function () {
+          // 클릭된 카드의 data-index 값을 가져옴
+          const index = card.getAttribute("data-index");
+
+          // 해당하는 페이지 경로로 이동
+          window.location.href = `interactive${index}/index.html`;
+        });
+      });
+    });
+
+    //로딩탭입니다. 이미지, 페이지 등 뭔가 로딩중이라면 띄웁니다.
+    window.addEventListener('load', function () {
+      document.getElementById('loading-screen').style.display = 'none';
+    });
+  </script>
 
 </body>
+
 </html>
