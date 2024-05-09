@@ -65,9 +65,82 @@
     color: #666;
     margin-top: 10px;
   }
+
+  
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999; /* 화면 최상단에 표시되도록 설정 */
+}
+
+#loading-cover {
+    display: flex;
+    width: 240px;
+    flex-direction: row;
+    margin-bottom: 15px;
+    justify-content: center;
+}
+
+.loading-dot {
+    width: 20px;
+    height: 20px;
+    background-color: #3498db;
+    border-radius: 50%;
+    animation: bounce 0.5s alternate infinite ease-in-out;
+    margin: 0 8px; /* 점 사이의 간격 조절 */
+}
+
+.loading-dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.loading-dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+.loading-dot:nth-child(4) {
+    animation-delay: 0.6s;
+}
+.loading-dot:nth-child(5) {
+    animation-delay: 0.8s;
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(2px);
+    }
+    100%{
+        transform: translateY(20px);
+    }
+}
+
+.loadingText {
+    font-size: 1em;
+    color: #333;
+}
 </style>
 </head>
 <body>
+
+  <div id="loading-screen">
+    <div id="loading-cover">
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+    </div>
+    <p class="loadingText">잠시만 기다려주세요</p>
+</div>
 
 <div class="container">
   <div class="card" data-index="1">
@@ -117,6 +190,11 @@
       window.location.href = `interactive${index}/index.html`;
     });
   });
+});
+
+//로딩탭입니다. 이미지, 페이지 등 뭔가 로딩중이라면 띄웁니다.
+window.addEventListener('load', function() {
+    document.getElementById('loading-screen').style.display = 'none';
 });
 </script>
 
