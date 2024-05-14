@@ -77,18 +77,78 @@ window.addEventListener('load', function () {
     document.getElementById('loading-screen').style.display = 'none';
 });
 
+
+// 각 페이지가 현재 페이지일 때 실행할 함수 구조체
+function onPageChange(currentPage) {
+    switch (currentPage) {
+        case 0:// 첫 번째 페이지에 대한 동작 실행
+            console.log("첫 번째 페이지입니다.");
+            break;
+        case 1:// 두 번째 페이지에 대한 동작 실행
+            console.log("두 번째 페이지입니다.");
+            break;
+        case 2:// 두 번째 페이지에 대한 동작 실행
+            console.log("세 번째 페이지입니다.");
+            break;
+        case 3:// 두 번째 페이지에 대한 동작 실행
+            console.log("네 번째 페이지입니다.");
+            break;
+        case 4:// 두 번째 페이지에 대한 동작 실행
+            console.log("다섯 번째 페이지입니다.");
+            break;
+        default:
+            // 기본적으로 할 일이 없는 경우
+            console.log("뭔가 이상합니다.");
+            break;
+    }
+}
+
+// 스크롤 또는 클릭에 의해 페이지가 변경될 때 호출되는 함수
+function onPageChanged(currentPage) {
+    // 현재 페이지가 변경되면 onPageChange 함수 호출
+    onPageChange(currentPage);
+}
+
+// 현재 페이지를 확인하고 onPageChange 함수를 호출하는 함수
+function checkCurrentPage() {
+    // 현재 선택된 페이지 확인
+    onPageChanged(page);
+}
+
+
 //쓰로틀링, 연속 이벤트의 첫번째만 받으면 일정 시간동안 입력을 처리 하지 않습니다.
 //여기서는 Timer가 없는지 검사하고, 존재한다면 이벤트를 취소하빈다. 존재하지 않는다면 새로운 timer를 생성하고, 이벤트는 실행됩니다.
+
 let timer;
+
 window.addEventListener('wheel', (i) => {
     if (!timer) {
         scrolly(i);
         timer = setTimeout(() => {
             timer = null;
+            checkCurrentPage(); // 페이지 변경 후 현재 페이지 확인
         }, 1500); //1.5초 쓰로틀링
     }
-
 }, { passive: false });
+
+// 페이지가 변경될 때마다 checkCurrentPage 함수 호출
+window.addEventListener('wheel', (i) => {
+    if (!timer) {
+        scrolly(i);
+        timer = setTimeout(() => {
+            timer = null;
+            checkCurrentPage(); // 페이지 변경 후 현재 페이지 확인
+        }, 1500); //1.5초 쓰로틀링
+    }
+}, { passive: false });
+
+// 네비게이션 점이 클릭될 때마다 checkCurrentPage 함수 호출
+navBall.forEach((dots, index) => {
+    dots.addEventListener('click', () => {
+        scrollToPage(index);
+        checkCurrentPage(); // 페이지 변경 후 현재 페이지 확인
+    });
+});
 
 // 모바일 환경 대응
 let lastTouchY;
