@@ -23,7 +23,8 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    z-index: 9999; /* 화면 최상단에 표시되도록 설정 */
+    z-index: 9999;
+    /* 화면 최상단에 표시되도록 설정 */
 }
 
 #loading-cover {
@@ -40,18 +41,22 @@ body {
     background-color: #3498db;
     border-radius: 50%;
     animation: bounce 0.5s alternate infinite ease-in-out;
-    margin: 0 8px; /* 점 사이의 간격 조절 */
+    margin: 0 8px;
+    /* 점 사이의 간격 조절 */
 }
 
 .loading-dot:nth-child(2) {
     animation-delay: 0.2s;
 }
+
 .loading-dot:nth-child(3) {
     animation-delay: 0.4s;
 }
+
 .loading-dot:nth-child(4) {
     animation-delay: 0.6s;
 }
+
 .loading-dot:nth-child(5) {
     animation-delay: 0.8s;
 }
@@ -60,10 +65,12 @@ body {
     0% {
         transform: translateY(0px);
     }
+
     50% {
         transform: translateY(2px);
     }
-    100%{
+
+    100% {
         transform: translateY(20px);
     }
 }
@@ -75,7 +82,7 @@ body {
 
 /*------------------------로딩 끝----------------------------*/
 
-.left-nav{
+.left-nav {
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
@@ -84,7 +91,7 @@ body {
     top: 0;
     height: 100%;
     width: 100px;
-    background-color: #333;
+    background: rgba(31, 31, 31, 0.2);
     z-index: 10000;
 }
 
@@ -115,11 +122,13 @@ body {
 .dots .dot {
     width: 5px;
     height: 5px;
-    background: rgba(255, 255, 255, 0) ;
+    background: rgba(255, 255, 255, 0);
     border-width: 1px;
     border-style: solid;
     border-color: white;
     border-radius: 100%;
+    transition: transform 0.3s ease;
+    /* 변화가 부드럽게 일어나도록 설정 */
 }
 
 .dots .now-index {

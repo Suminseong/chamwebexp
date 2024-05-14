@@ -1,6 +1,6 @@
 const divMain = document.getElementsByClassName('main')[0];
 const divSection = document.getElementsByClassName('wrap-section');
-const navBall = document.querySelectorAll('dot');
+const navBall = document.querySelectorAll('.dot');
 
 let page = 0;
 const endPage = divSection.length - 1;
@@ -16,17 +16,20 @@ function scrolly(i) { //스크롤시 Div가 하나씩 넘어가는 효과
     if (page < 0) {
         page = 0;
     }
-    else if (page > endPage) {
+    else if (page > endPage) { //마지막 페이지 도달시
         page = endPage;
     }
     divMain.style.top = page * -100 + 'vh';
-    navBall.forEach(function(page){
-        navBall.classList.remove('now-index')
-    })
+    navDotManage(page);
+}
+
+function navDotManage(pageIndex) {  // 네비게이션 점 제어부
+    navBall.forEach(dot => dot.classList.remove('now-index'));
+    navBall[pageIndex].classList.add('now-index');
 }
 
 //로딩탭입니다. 이미지, 페이지 등 뭔가 로딩중이라면 띄웁니다.
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
     document.getElementById('loading-screen').style.display = 'none';
 });
 
@@ -40,4 +43,4 @@ window.addEventListener('wheel', (i) => {
             timer = null;
         }, 1500); //1.5초 쓰로틀링
     }
-}, { passive: false});
+}, { passive: false });
