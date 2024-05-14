@@ -79,39 +79,12 @@ window.addEventListener('touchstart', function(event) {
 }, { passive: false });
 
 window.addEventListener('touchmove', function(event) {
-    if (event.touches && event.touches.length > 0) {
-        // 터치 이벤트가 발생한 위치의 Y 좌표를 가져옵니다.
-        const touchY = event.touches[0].clientY;
-
-        // 초기 터치 이벤트의 Y 좌표와 비교하여 스크롤 방향을 결정합니다.
-        if (touchY > initialTouchY) {
-            // 아래로 스크롤되었을 때
-            page--;
-        } else if (touchY < initialTouchY) {
-            // 위로 스크롤되었을 때
-            page++;
-        }
-
-        // 페이지가 범위를 벗어나지 않도록 확인합니다.
-        if (page < 0) {
-            page = 0;
-        } else if (page > endPage) {
-            page = endPage;
-        }
-
-        // 스크롤 처리
-        divMain.style.top = page * -100 + 'vh';
-        navDotManage(page);
-
-        // 기본 스크롤 동작을 막습니다.
-        event.preventDefault();
+    if (!timerTouch) { // 타이머가 없으면 이벤트를 처리하고, 타이머를 설정합니다.
+        onTouchMove(event);
+        timerTouch = setTimeout(() => {
+            timerTouch = null;
+        }, 1500); // 1.5초 쓰로틀링
     }
-}, { passive: false });
-
-// 터치가 끝난 순간의 이벤트 핸들러를 등록합니다.
-window.addEventListener('touchend', function(event) {
-    // 터치가 끝난 후 초기 터치 좌표를 초기화합니다.
-    initialTouchY = null;
 }, { passive: false });
 
 
