@@ -8,10 +8,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     navItems.forEach(item => {
         item.addEventListener('click', function (event) {
-            event.stopPropagation(); // 클릭 이벤트 버블링 방지
-            
-            // 클릭한 요소의 부모 요소에서 다른 하위 메뉴 닫기
-            navItems.forEach(otherItem => {
+            event.stopPropagation(); // 버블링을 방지합니다. 
+            navItems.forEach(otherItem => { //다른 탭 닫기
                 if (otherItem !== item && otherItem.classList.contains('active')) {
                     otherItem.classList.remove('active');
                 }
@@ -30,6 +28,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+//여기까지가 헤더
+
 let page = 0;
 const endPage = divSection.length - 1;
 

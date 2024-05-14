@@ -157,7 +157,7 @@ body {
     font-weight: 300;
 }
 
-.sub-menu:hover {
+.sub-menu > li:hover {
     font-weight: 500;
 }
 
@@ -313,8 +313,10 @@ h1 {
     border-color: white transparent transparent transparent;
 }
 
+/*=================== Section A =====================*/
+
 .main .B {
-    background-color: aquamarine;
+    background-color: #050709;
 }
 
 .main .C {
