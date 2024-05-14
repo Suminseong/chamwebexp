@@ -65,59 +65,52 @@ window.addEventListener('wheel', (i) => {
 
 // 모바일 환경 대응
 let lastTouchY;
+let throttled = false;
 
-// 터치 이벤트 핸들러를 등록합니다.
-window.addEventListener('touchmove', function() {
-    if (!timer) {
-        onTouchMove;
-        timer = setTimeout(() => {
-            timer = null;
-        }, 1500); //1.5초 쓰로틀링
-    }
-}, { passive: false });
-
-// 초기화
-lastTouchY = null;
+window.addEventListener('touchmove', onTouchMove, { passive: false });
 
 function onTouchMove(event) {
-    // 터치 이벤트가 발생한 경우에만 처리합니다.
-    if (event.touches && event.touches.length > 0) {
-        // 터치 이벤트가 발생한 위치의 Y 좌표를 가져옵니다.
-        const touchY = event.touches[0].clientY;
+    // 스로틀링된 경우, 이벤트를 무시합니다.
+    if (throttled) return;
 
-        // 초기 터치 이벤트의 Y 좌표가 설정되어 있지 않으면 설정합니다.
-        if (lastTouchY === null) {
+    throttled = true;
+
+    setTimeout(() => {
+        // 터치 이벤트가 발생한 경우에만 처리합니다.
+        if (event.touches && event.touches.length > 0) {
+            const touchY = event.touches[0].clientY;
+
+            // 초기 터치 이벤트의 Y 좌표가 설정되어 있지 않으면 설정합니다.
+            if (lastTouchY === undefined) {
+                lastTouchY = touchY;
+                return;
+            }
+
+            // 이전 터치 이벤트의 Y 좌표와 비교하여 스크롤 방향을 결정합니다.
+            if (touchY > lastTouchY) {
+                // 아래로 스크롤되었을 때
+                page--;
+            } else if (touchY < lastTouchY) {
+                // 위로 스크롤되었을 때
+                page++;
+            }
+
+            // 페이지가 범위를 벗어나지 않도록 확인합니다.
+            if (page < 0) {
+                page = 0;
+            } else if (page > endPage) {
+                page = endPage;
+            }
+
+            // 스크롤 처리
+            divMain.style.top = page * -100 + 'vh';
+            navDotManage(page);
+
+            // 이전 터치 이벤트의 Y 좌표를 갱신합니다.
             lastTouchY = touchY;
-            return;
         }
 
-        // 이전 터치 이벤트의 Y 좌표와 비교하여 스크롤 방향을 결정합니다.
-        if (touchY > lastTouchY) {
-            // 아래로 스크롤되었을 때
-            page--;
-        } else if (touchY < lastTouchY) {
-            // 위로 스크롤되었을 때
-            page++;
-        }
-
-        // 페이지가 범위를 벗어나지 않도록 확인합니다.
-        if (page < 0) {
-            page = 0;
-        } else if (page > endPage) {
-            page = endPage;
-        }
-
-        // 스크롤 처리
-        divMain.style.top = page * -100 + 'vh';
-        navDotManage(page);
-
-        // 이전 터치 이벤트의 Y 좌표를 갱신합니다.
-        lastTouchY = touchY;
-
-        // 기본 스크롤 동작을 막습니다.
-        event.preventDefault();
-    }
+        // 스로틀링 해제
+        throttled = false;
+    }, 150); // 150ms 지연시간
 }
-
-// 초기화 이전에 호출하여 초기값을 설정합니다.
-onTouchMove({ touches: [{ clientY: 0 }] });
