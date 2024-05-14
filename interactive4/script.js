@@ -2,6 +2,34 @@ const divMain = document.getElementsByClassName('main')[0];
 const divSection = document.getElementsByClassName('wrap-section');
 const navBall = document.querySelectorAll('.dot');
 
+//헤더. 어디서나 복사해 쉽게 쓸 수 있는!
+document.addEventListener("DOMContentLoaded", function () {
+    const navItems = document.querySelectorAll('.nav-item');
+
+    navItems.forEach(item => {
+        item.addEventListener('click', function (event) {
+            event.stopPropagation(); // 클릭 이벤트 버블링 방지
+            
+            // 클릭한 요소의 부모 요소에서 다른 하위 메뉴 닫기
+            navItems.forEach(otherItem => {
+                if (otherItem !== item && otherItem.classList.contains('active')) {
+                    otherItem.classList.remove('active');
+                }
+            });
+
+            this.classList.toggle('active');
+        });
+    });
+
+    // 네비게이션 바깥 부분 클릭 시 세부 메뉴 숨김
+    document.addEventListener('click', function (event) {
+        if (!event.target.closest('.nav')) {
+            navItems.forEach(item => {
+                item.classList.remove('active');
+            });
+        }
+    });
+});
 let page = 0;
 const endPage = divSection.length - 1;
 
@@ -59,7 +87,7 @@ window.addEventListener('wheel', (i) => {
             timer = null;
         }, 1500); //1.5초 쓰로틀링
     }
-    
+
 }, { passive: false });
 
 // 모바일 환경 대응
@@ -71,13 +99,13 @@ let initialTouchY;
 
 // 터치 이벤트 핸들러 내에서 쓰로틀링을 적용합니다.
 
-window.addEventListener('touchstart', function(event) {
+window.addEventListener('touchstart', function (event) {
     if (event.touches && event.touches.length > 0) {
         initialTouchY = event.touches[0].clientY;
     }
 }, { passive: false });
 
-window.addEventListener('touchmove', function(event) {
+window.addEventListener('touchmove', function (event) {
     if (!timerTouch) { // 타이머가 없으면 이벤트를 처리하고, 타이머를 설정합니다.
         onTouchMove(event);
         timerTouch = setTimeout(() => {
