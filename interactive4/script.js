@@ -28,6 +28,23 @@ function navDotManage(pageIndex) {  // 네비게이션 점 제어부
     navBall[pageIndex].classList.add('now-index');
 }
 
+navBall.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+        // 클릭된 점의 인덱스에 해당하는 페이지로 날아갑니다
+        scrollToPage(index);
+    });
+});
+
+// 특정 페이지로 이동하는 함수
+function scrollToPage(index) {
+    // 인덱스가 페이지 범위 내에 있는지?
+    if (index >= 0 && index <= endPage) {// 해당 페이지로 이동.
+        page = index;
+        divMain.style.top = page * -100 + 'vh';// 네비게이션 점도 업데이트
+        navDotManage(page);
+    }
+}
+
 //로딩탭입니다. 이미지, 페이지 등 뭔가 로딩중이라면 띄웁니다.
 window.addEventListener('load', function () {
     document.getElementById('loading-screen').style.display = 'none';
