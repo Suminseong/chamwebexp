@@ -61,3 +61,40 @@ window.addEventListener('wheel', (i) => {
         }, 1500); //1.5초 쓰로틀링
     }
 }, { passive: false });
+
+//모바일 환경 대응
+
+window.addEventListener('touchmove', onTouchMove, { passive: false });
+
+let lastTouchY;
+
+function onTouchMove(event) {
+    // 터치 이벤트가 발생한 위치의 Y 좌표를 가져옵니다.
+    const touchY = event.touches[0].clientY;
+
+    // 이전 터치 이벤트의 Y 좌표와 비교하여 스크롤 방향을 결정합니다.
+    if (touchY > lastTouchY) {
+        // 아래로 스크롤되었을 때
+        page--;
+    } else if (touchY < lastTouchY) {
+        // 위로 스크롤되었을 때
+        page++;
+    }
+
+    // 페이지가 범위를 벗어나지 않도록 확인합니다.
+    if (page < 0) {
+        page = 0;
+    } else if (page > endPage) {
+        page = endPage;
+    }
+
+    // 스크롤 처리
+    divMain.style.top = page * -100 + 'vh';
+    navDotManage(page);
+
+    // 이전 터치 이벤트의 Y 좌표를 갱신합니다.
+    lastTouchY = touchY;
+
+    // 기본 스크롤 동작을 막습니다.
+    event.preventDefault();
+}
