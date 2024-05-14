@@ -1,5 +1,5 @@
 html {
-    height: 100%;
+    height: 100vh;
 }
 
 body {
@@ -74,6 +74,58 @@ body {
 }
 
 /*------------------------로딩 끝----------------------------*/
+
+.left-nav{
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 100px;
+    background-color: #333;
+    z-index: 10000;
+}
+
+.left-nav .line {
+    flex: 1;
+    width: 1px;
+    overflow: auto;
+    background-color: white;
+}
+
+.left-nav .dot-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 160px;
+}
+
+.left-nav .dot-container .dots {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dots .dot {
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0) ;
+    border-width: 1px;
+    border-style: solid;
+    border-color: white;
+    border-radius: 100%;
+}
+
+.dots .now-index {
+    transform: scale(2);
+    background: white;
+}
 
 .main {
     position: relative;
