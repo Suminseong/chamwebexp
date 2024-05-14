@@ -1,5 +1,16 @@
+* {
+    font-family: "Noto Sans KR", sans-serif;
+}
+
 html {
     height: 100vh;
+    font-size: 16px;
+}
+
+@media only screen and (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
 }
 
 body {
@@ -128,7 +139,6 @@ body {
     border-color: white;
     border-radius: 100%;
     transition: transform 0.3s ease;
-    /* 변화가 부드럽게 일어나도록 설정 */
 }
 
 .dots .now-index {
@@ -150,7 +160,20 @@ section {
 }
 
 .main .A {
-    background-color: antiquewhite;
+    background-image: url('main-bg.png');
+    background-size: cover;
+    overflow: hidden;
+}
+
+h1 {
+    font-size: 3.75em;
+    color: #e3e3e3;
+    
+}
+
+.orange {
+    font-size: 1.6em;
+    color: #ff7600;
 }
 
 .main .B {

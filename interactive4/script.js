@@ -28,9 +28,8 @@ function navDotManage(pageIndex) {  // 네비게이션 점 제어부
     navBall[pageIndex].classList.add('now-index');
 }
 
-navBall.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-        // 클릭된 점의 인덱스에 해당하는 페이지로 날아갑니다
+navBall.forEach((dots, index) => {
+    dots.addEventListener('click', () => {// 클릭된 점의 인덱스에 해당하는 페이지로 날아갑니다
         scrollToPage(index);
     });
 });
