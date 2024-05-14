@@ -67,7 +67,14 @@ window.addEventListener('wheel', (i) => {
 let lastTouchY;
 
 // 터치 이벤트 핸들러를 등록합니다.
-window.addEventListener('touchmove', onTouchMove, { passive: false });
+window.addEventListener('touchmove', function() {
+    if (!timer) {
+        onTouchMove;
+        timer = setTimeout(() => {
+            timer = null;
+        }, 1500); //1.5초 쓰로틀링
+    }
+}, { passive: false });
 
 // 초기화
 lastTouchY = null;
