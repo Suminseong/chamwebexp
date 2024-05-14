@@ -84,8 +84,70 @@ function onPageChange(currentPage) {
         case 0:// 첫 번째 페이지에 대한 동작 실행
             console.log("첫 번째 페이지입니다.");
             break;
-        case 1:// 두 번째 페이지에 대한 동작 실행
-            console.log("두 번째 페이지입니다.");
+        case 1:// 두 번째 페이지
+
+            // 원하는 숫자 설정
+            const targetNumber1 = 8;
+            const targetNumber2 = 7;
+            const targetNumber3 = 1;
+            const popuNumber = 519060;
+            const volNumber = 139.92;
+            // 카운팅 시작하는 숫자
+            let currentNumber1 = 0;
+            let currentNumber2 = 0;
+            let currentNumber3 = 0;
+            let currentNumber4 = 0;
+            let currentNumber5 = 0;
+            const countUp1 = setInterval(function () { //카운트 숫자 올리기
+                // 숫자를 1씩 증가
+                currentNumber1++;
+                // 숫자를 요소에 표시
+                document.getElementById('counting1').textContent = currentNumber1;
+                // 원하는 숫자가 되면 카운팅 중지
+                if (currentNumber1 === targetNumber1) {
+                    clearInterval(countUp1);
+                }
+            }, 70);
+            const countUp2 = setInterval(function () { //카운트 숫자 올리기
+                // 숫자를 1씩 증가
+                currentNumber2++;
+                // 숫자를 요소에 표시
+                document.getElementById('counting2').textContent = currentNumber2;
+                // 원하는 숫자가 되면 카운팅 중지
+                if (currentNumber2 === targetNumber2) {
+                    clearInterval(countUp2);
+                }
+            }, 70);
+            const countUp3 = setInterval(function () { //카운트 숫자 올리기
+                // 숫자를 1씩 증가
+                currentNumber3++;
+                // 숫자를 요소에 표시
+                document.getElementById('counting3').textContent = currentNumber3;
+                // 원하는 숫자가 되면 카운팅 중지
+                if (currentNumber3 === targetNumber3) {
+                    clearInterval(countUp3);
+                }
+            }, 70);
+            const countUp4 = setInterval(function () { //카운트 숫자 올리기
+                // 숫자를 1씩 증가
+                currentNumber4 = currentNumber4 + 3165;  //더하는 숫자는 소인수분해해서 나온 숫자의 곱으로 합니다. 안그러면 카운팅 안멈춤
+                // 숫자를 요소에 표시
+                document.getElementById('countingpopu').textContent = currentNumber4;
+                // 원하는 숫자가 되면 카운팅 중지
+                if (currentNumber4 === popuNumber) {
+                    clearInterval(countUp4);
+                }
+            }, 10);
+            const countUp5 = setInterval(function () { //카운트 숫자 올리기
+                // 숫자를 1씩 증가
+                currentNumber5 = parseFloat((currentNumber5 + 5.83).toFixed(2)); // 더하는 숫자는 소인수분해해서 나온 숫자의 곱으로 합니다. 안그러면 카운팅 안멈춤
+                // 숫자를 요소에 표시
+                document.getElementById('countingvol').textContent = currentNumber5;
+                // 원하는 숫자가 되면 카운팅 중지
+                if (currentNumber5 === volNumber) {
+                    clearInterval(countUp5);
+                }
+            }, 80);
             break;
         case 2:// 두 번째 페이지에 대한 동작 실행
             console.log("세 번째 페이지입니다.");

@@ -1,6 +1,8 @@
 * {
     font-family: "Noto Sans KR", sans-serif;
     list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 a {
@@ -10,17 +12,8 @@ a {
 a:link,
 a:visited {
     color: inherit;
-    /* 링크의 색상을 부모 요소로부터 상속합니다. */
     text-decoration: none;
-    /* 링크의 밑줄을 제거합니다. */
 }
-
-a:hover,
-a:focus,
-a:active {
-    /* 선택된 상태에서의 스타일은 원치 않으므로 아무 스타일도 추가하지 않습니다. */
-}
-
 html {
     height: 100vh;
     font-size: 16px;
@@ -316,7 +309,82 @@ h1 {
 /*=================== Section A =====================*/
 
 .main .B {
+    display: grid;
     background-color: #050709;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 75px;
+}
+
+h3 {
+    font-size: 2em;
+    color: white;
+    font-weight: 600;
+}
+
+.B p {
+    color: #e7e7e7;
+}
+
+.B span {
+    color: white;
+}
+
+.welcome-container {
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mayor-name {
+    font-size: 32px;
+    letter-spacing: 12.8px;
+    font-weight: 600;
+}
+
+.portrait-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.portrait-container img {
+    height: 300px;
+    width: auto;
+    margin-bottom: 20px;
+}
+
+.cityinfo {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cityinfo .info {
+    font-weight: 600;
+}
+
+.cityinfo .span-margin{
+    margin-top: 38px;
+}
+
+.cityinfo .party-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 48px;
+}
+
+.party-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    font-size: 1.25em;
+    font-weight: 600;
 }
 
 .main .C {
