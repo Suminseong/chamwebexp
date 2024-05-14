@@ -60,17 +60,29 @@ window.addEventListener('wheel', (i) => {
             timer = null;
         }, 1500); //1.5초 쓰로틀링
     }
+    
 }, { passive: false });
 
 //모바일 환경 대응
-
-window.addEventListener('touchmove', onTouchMove, { passive: false });
-
+// 모바일 환경 대응
 let lastTouchY;
+
+// 터치 이벤트 핸들러를 등록합니다.
+window.addEventListener('touchmove', onTouchMove, { passive: false });
+onTouchMove(event);
+
+// 초기화
+lastTouchY = null;
 
 function onTouchMove(event) {
     // 터치 이벤트가 발생한 위치의 Y 좌표를 가져옵니다.
     const touchY = event.touches[0].clientY;
+
+    // 초기 터치 이벤트의 Y 좌표가 설정되어 있지 않으면 설정합니다.
+    if (lastTouchY === null) {
+        lastTouchY = touchY;
+        return;
+    }
 
     // 이전 터치 이벤트의 Y 좌표와 비교하여 스크롤 방향을 결정합니다.
     if (touchY > lastTouchY) {
@@ -98,3 +110,6 @@ function onTouchMove(event) {
     // 기본 스크롤 동작을 막습니다.
     event.preventDefault();
 }
+
+// 초기화 이전에 호출하여 초기값을 설정합니다.
+onTouchMove({ touches: [{ clientY: 0 }] });
