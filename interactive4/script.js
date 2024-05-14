@@ -1,6 +1,7 @@
 const divMain = document.getElementsByClassName('main')[0];
 const divSection = document.getElementsByClassName('wrap-section');
 const navBall = document.querySelectorAll('.dot');
+const headTag = document.querySelector('.header');
 
 //헤더. 어디서나 복사해 쉽게 쓸 수 있는!
 document.addEventListener("DOMContentLoaded", function () {
@@ -8,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     navItems.forEach(item => {
         item.addEventListener('click', function (event) {
-            event.stopPropagation(); // 버블링을 방지합니다. 
+            event.stopPropagation(); // 버블링 방지용. 버블링을 실제로 경험한건 처음이었습니다. 
             navItems.forEach(otherItem => { //다른 탭 닫기
                 if (otherItem !== item && otherItem.classList.contains('active')) {
                     otherItem.classList.remove('active');
@@ -19,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // 네비게이션 바깥 부분 클릭 시 세부 메뉴 숨김
+    // 네비게이션 바깥 부분 클릭 시 세부 메뉴 숨길 수 있게
     document.addEventListener('click', function (event) {
         if (!event.target.closest('.nav')) {
             navItems.forEach(item => {
@@ -63,6 +64,7 @@ navBall.forEach((dots, index) => {
 });
 
 // 특정 페이지로 이동하는 함수
+
 function scrollToPage(index) {
     // 인덱스가 페이지 범위 내에 있는지?
     if (index >= 0 && index <= endPage) {// 해당 페이지로 이동.
@@ -78,14 +80,16 @@ window.addEventListener('load', function () {
 });
 
 
-// 각 페이지가 현재 페이지일 때 실행할 함수 구조체
+// 각 페이지가 현재 페이지일 때 실행할 함수 구조체. 함수식 관리가 더 편해졌네요!
 function onPageChange(currentPage) {
     switch (currentPage) {
         case 0:// 첫 번째 페이지에 대한 동작 실행
-            console.log("첫 번째 페이지입니다.");
+            headTag.classList.add('white-text');
+            headTag.classList.remove('black-text');
             break;
         case 1:// 두 번째 페이지
-
+            headTag.classList.add('white-text');
+            headTag.classList.remove('black-text');
             // 원하는 숫자 설정
             const targetNumber1 = 8;
             const targetNumber2 = 7;
@@ -149,17 +153,16 @@ function onPageChange(currentPage) {
                 }
             }, 80);
             break;
-        case 2:// 두 번째 페이지에 대한 동작 실행
-            console.log("세 번째 페이지입니다.");
+        case 2:// 세 번째 페이지에 대한 동작 실행
+            headTag.classList.remove('white-text');
+            headTag.classList.add('black-text');
             break;
-        case 3:// 두 번째 페이지에 대한 동작 실행
-            console.log("네 번째 페이지입니다.");
-            break;
-        case 4:// 두 번째 페이지에 대한 동작 실행
-            console.log("다섯 번째 페이지입니다.");
-            break;
+        case 3:// 네 번째 페이지에 대한 동작 실행
+        // headTag.classList.remove('white-text');
+        // headTag.classList.add('black-text');
+        //     console.log("네 번째 페이지입니다."); // 여기는 만들지는 않았지만, 확장 가능함
         default:
-            // 기본적으로 할 일이 없는 경우
+            // 기본적으로 할 일이 없는 경우. 달리 말하면 버그입니다.
             console.log("뭔가 이상합니다.");
             break;
     }
@@ -177,10 +180,8 @@ function checkCurrentPage() {
     onPageChanged(page);
 }
 
-
 //쓰로틀링, 연속 이벤트의 첫번째만 받으면 일정 시간동안 입력을 처리 하지 않습니다.
 //여기서는 Timer가 없는지 검사하고, 존재한다면 이벤트를 취소하빈다. 존재하지 않는다면 새로운 timer를 생성하고, 이벤트는 실행됩니다.
-
 let timer;
 
 window.addEventListener('wheel', (i) => {
