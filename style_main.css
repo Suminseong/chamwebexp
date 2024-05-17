@@ -1,7 +1,8 @@
-    * {
-        margin: 0;
-        padding: 0;
-    }
+* {
+    margin: 0;
+    padding: 0;
+  }
+
   body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -15,8 +16,10 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
-    background-color: #666; /* 네비게이션 바 색상 */
-    color: #fff; /* 텍스트 색상 */
+    background-color: #666;
+    /* 네비게이션 바 색상 */
+    color: #fff;
+    /* 텍스트 색상 */
   }
 
   .editor {
@@ -35,30 +38,37 @@
     display: flex;
     align-items: center;
   }
+
   nav ul {
     list-style: none;
     display: flex;
   }
+
   nav ul li {
     margin-right: 20px;
-    font-size: 16px; /* 메뉴 항목 폰트 크기 */
+    font-size: 16px;
+    /* 메뉴 항목 폰트 크기 */
   }
 
   nav ul li:last-child {
     margin-right: 0;
   }
+
   nav ul li a {
-    color: #fff; /* 메뉴 항목 텍스트 색상 */
+    color: #fff;
+    /* 메뉴 항목 텍스트 색상 */
     text-decoration: none;
     transition: color 0.3s ease;
   }
+
   nav ul li a:hover {
-    color: #ddd; /* 메뉴 항목 텍스트 호버 시 색상 */
+    color: #ddd;
+    /* 메뉴 항목 텍스트 호버 시 색상 */
   }
 
   /*------------------------------------------------*/
 
-aside {
+  aside {
     position: fixed;
     z-index: 1000;
     top: 0;
@@ -68,39 +78,41 @@ aside {
     background-color: rgb(77, 77, 77);
     transform: translateX(-200px);
     transition: all 0.3s;
-}
+  }
 
-.open-menu{
+  .open-menu {
     font-size: 32px;
-}
+  }
 
-div.menu {
+  div.menu {
     margin-bottom: 40px;
     display: flex;
     gap: 16px;
     font-weight: bold;
-}
-div.sub-heading {
+  }
+
+  div.sub-heading {
     margin-bottom: 28px;
     display: flex;
     gap: 16px;
-}
+  }
 
-.invisible {
+  .invisible {
     display: none;
-}
+  }
 
-.visible { 
+  .visible {
     display: block;
-}
+  }
 
-/*---------------------------------------------*/
+  /*---------------------------------------------*/
 
   .container {
     max-width: 1200px;
+    justify-content: center;
     margin: 20px auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(375px, 375px));
     grid-gap: 20px;
     padding: 0 20px;
   }
@@ -110,7 +122,7 @@ div.sub-heading {
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-     /*card 내부의 card-wrapper 컨테이너가 카드를 가득 채우지 못하는 이슈, 수정 요망*/
+    /*card 내부의 card-wrapper 컨테이너가 카드를 가득 채우지 못하는 이슈, 수정 요망*/
   }
 
   .img-wrapper {
@@ -147,8 +159,8 @@ div.sub-heading {
     margin-top: 10px;
   }
 
-  
-#loading-screen {
+
+  #loading-screen {
     position: fixed;
     top: 0;
     left: 0;
@@ -159,52 +171,59 @@ div.sub-heading {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    z-index: 9999; /* 화면 최상단에 표시되도록 설정 */
-}
+    z-index: 9999;
+    /* 화면 최상단에 표시되도록 설정 */
+  }
 
-#loading-cover {
+  #loading-cover {
     display: flex;
     width: 240px;
     flex-direction: row;
     margin-bottom: 15px;
     justify-content: center;
-}
+  }
 
-.loading-dot {
+  .loading-dot {
     width: 20px;
     height: 20px;
     background-color: #3498db;
     border-radius: 50%;
     animation: bounce 0.5s alternate infinite ease-in-out;
-    margin: 0 8px; /* 점 사이의 간격 조절 */
-}
+    margin: 0 8px;
+    /* 점 사이의 간격 조절 */
+  }
 
-.loading-dot:nth-child(2) {
+  .loading-dot:nth-child(2) {
     animation-delay: 0.2s;
-}
-.loading-dot:nth-child(3) {
+  }
+
+  .loading-dot:nth-child(3) {
     animation-delay: 0.4s;
-}
-.loading-dot:nth-child(4) {
+  }
+
+  .loading-dot:nth-child(4) {
     animation-delay: 0.6s;
-}
-.loading-dot:nth-child(5) {
+  }
+
+  .loading-dot:nth-child(5) {
     animation-delay: 0.8s;
-}
+  }
 
-@keyframes bounce {
+  @keyframes bounce {
     0% {
-        transform: translateY(0px);
+      transform: translateY(0px);
     }
-    50% {
-        transform: translateY(2px);
-    }
-    100%{
-        transform: translateY(20px);
-    }
-}
 
-.loadingText {
+    50% {
+      transform: translateY(2px);
+    }
+
+    100% {
+      transform: translateY(20px);
+    }
+  }
+
+  .loadingText {
     font-size: 1em;
     color: #333;
-}
+  }
