@@ -110,6 +110,7 @@ div.sub-heading {
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+     /*card 내부의 card-wrapper 컨테이너가 카드를 가득 채우지 못하는 이슈, 수정 요망*/
   }
 
   .img-wrapper {
