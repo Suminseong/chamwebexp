@@ -121,8 +121,18 @@
     background-color: #fff;
     border-radius: 8px;
     overflow: hidden;
+    opacity: 1;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.1s;
     /*card 내부의 card-wrapper 컨테이너가 카드를 가득 채우지 못하는 이슈, 수정 요망*/
+  }
+
+  .card:hover {
+    cursor: pointer;
+    background-color: #e3e5e8;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+    opacity: 0.9;
+    transition: all 0.3s;
   }
 
   .img-wrapper {
