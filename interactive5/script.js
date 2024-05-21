@@ -1,5 +1,6 @@
 const headTag = document.querySelector('header');
 const section0 = document.querySelector('.section0');
+const section1 = document.querySelector('.section1');
 const introContainer = document.querySelector('.intro-container');
 const movableLogo = document.querySelector('.logo-symbol');
 
@@ -25,6 +26,8 @@ document.addEventListener('scroll', function () {
       document.body.style.position = ''; // 스크롤 고정 해제
       document.body.style.width = ''; // 너비 조절 해제
       throttleTimeout = null; // 1초 후 타임아웃 해제
+      introContainer.style.display = 'none';
+      section0.style.zIndex = -10000;
     }, 1000); // 1초 동안 스크롤 이벤트 무시
   }
 });
