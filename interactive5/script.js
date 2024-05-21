@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function () { //컨텐츠 존재�
   });
 
   window.addEventListener('scroll', checkCards);
-  checkCards(); // Initial check on page load
+  checkCards();
 });
 
 //버튼 클릭시 이상한 창을 띄우기
