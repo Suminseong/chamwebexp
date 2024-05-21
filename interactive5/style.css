@@ -226,6 +226,8 @@ h2 {
 .area3 p {
     margin-bottom: 8px;
     font-size: 12px;
+    font-family: "Noto Sans KR", sans-serif;
+    font-weight: 300;
 }
 
 .area3 .semibold {
@@ -444,9 +446,10 @@ button:active {
 }
 
 .p-13px {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 200;
     font-family: "Noto Sans KR", sans-serif;
+    text-align: justify;
 }
 
 .subtitle {
@@ -523,6 +526,13 @@ button:active {
 .rightmove {
     justify-content: right;
     flex-direction: row-reverse;
+}
+
+.p-16px {
+    font-size: 16px;
+    text-align: justify;
+    font-weight: 300;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 h4 {
