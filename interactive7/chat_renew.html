@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chatttt</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f0f2f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        height: 100vh;
+        margin: 0;
+    }
+
+    .chat-container {
+        position: relative;
+        width: 360px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .chat-header {
+        background: #007bff;
+        color: #fff;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .chat-area {
+        background: #fff;
+        height: 400px;
+        overflow-y: auto;
+        padding: 15px;
+    }
+
+    .chat-area .chat-bubble {
+        padding: 10px 15px;
+        margin: 10px 0;
+        border-radius: 15px;
+        display: inline-block;
+        max-width: 80%;
+        clear: both;
+    }
+
+    .chat-bubble.user {
+        float: right;
+        background: #007bff;
+        color: #fff;
+    }
+
+    .chat-bubble.bot {
+        background: #e9e9eb;
+        float: left;
+    }
+
+    .chat-input {
+        display: flex;
+        padding: 10px;
+        border-top: 1px solid #e0e0e0;
+        background: #fff;
+    }
+
+    .chat-input input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+        outline: none;
+    }
+
+    .chat-input button {
+        background: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        margin-left: 10px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    .chat-input button i {
+        font-size: 16px;
+    }
+
+    #tag {
+        width: 100%;
+        position: absolute;
+        bottom: 58px;
+        border-top: 1px solid #e0e0e0;
+        background-color: #fff;
+        padding: 5px 0;
+        display: none;
+    }
+
+    #tag div {
+        padding: 5px 0;
+    }
+</style>
+
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h3><i class="fas fa-comments"></i> Messenger</h3>
+        </div>
+
+        <!----------------- 채팅 뜨는 곳 --------------------->
+        <div class="chat-area" id="chat-area">
+        </div>
+
+        <!---------------- 입력칸 -------------------->
+        <div class="chat-input">
+            <input type="text" id="message-input" placeholder="Type a message...">
+            <button id="send-button"><i class="fas fa-paper-plane"></i></button>
+        </div>
+
+        <div id="tag">
+            <div>주시윤</div>
+            <div>유미나</div>
+            <div>양하림</div>
+        </div>
+    </div>
+    
+</body>
+<script>
+    
+    $(document).ready(function () { 
+        
+        function sendMessage() {
+            var message = $('#message-input').val();
+            if (message.trim() !== "") {
+                $('.chat-bubble').last().animate({'margin-bottom': -5}, 100).animate({'margin-bottom': 0}, 100) // 내가 채팅을 보내면 위아래로 흔들
+                $('#chat-area').append('<div class="chat-bubble user">' + message + '</div>');
+                $('#message-input').val(''); 
+                scrollToBottom(); 
+
+                setTimeout(function () { //봇
+                    $('#chat-area').append('<div class="chat-bubble bot">너 지금 ' + message + '라고 한거 다 알아.</div>')
+                    $('.bot').last().animate({'margin-left': 5}, 100).animate({'margin-left': 0}, 100);//봇이 채팅을 보내면 글자 옆으로 흔들
+                    scrollToBottom();
+                }, 1000);
+            }
+        }
+
+        //스크롤부
+        function scrollToBottom() {
+            var chatArea = $('#chat-area');
+            chatArea.scrollTop(chatArea.prop("scrollHeight"));
+        }
+        //마우스 클릭
+        $('#send-button').click(function() {
+            sendMessage();
+        })
+        //키보드 입력
+        $('#message-input').keypress(function(e) {
+            if (e.keyCode == 13) {
+                sendMessage()
+            }
+
+            if (e.key == '@') {
+                $('#tag').slideDown(500);
+            }
+            else{
+                $('#tag').slideUp(500);
+            }
+        })
+
+        //신규 : 태그기능. 카톡의 태그 그거랑 똑같이
+        $("#tag > div").click(function(){
+            let message = $('#message-input').val() + $(this).text()
+            $('#message-input').val(message)
+            $('#tag').hide();
+        })
+    })
+</script>
+
+</html>
