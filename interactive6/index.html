@@ -82,6 +82,13 @@
             transition: all 0.3s, box-shadow 0.3s;
         }
 
+        .text {
+            max-width: 400px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap; /*한글은 처리 방식이 달라 이렇게 해야 오버플로가 처리됨*/
+        }
+
         li:hover {
             background-color: #f8f9fa;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -123,7 +130,7 @@
             $('#btn_add').click(function () {
                 let newItem = $('<li class="work"></li>')
                 let newIcon = $('<span class="icon">❌</span>')
-                let newText = $('<span class="text"></span>')
+                let newText = $('<p class="text"></p>')
 
                 let task = $('#input_todo').val();
                 newText.text(task)
