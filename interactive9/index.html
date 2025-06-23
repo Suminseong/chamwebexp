@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>감상 남기기 데모</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Pretendard', sans-serif;
+    }
+    body {
+      background: #000;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      perspective: 1000px;
+    }
+    .card {
+      position: relative;
+      width: 360px;
+      padding: 20px;
+      border-radius: 12px;
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      transition: transform 0.1s ease, all 0.6s ease-in-out;
+      transform-style: preserve-3d;
+    }
+    .title {
+      font-size: 20px;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      font-size: 12px;
+      color: #ccc;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .input-box {
+      margin-bottom: 12px;
+    }
+    label {
+      font-size: 10px;
+      color: #ddd;
+      display: block;
+      margin-bottom: 4px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      border: none;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 12px;
+      outline: none;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      background: #171717;
+      color: #fff;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .card.explode {
+      animation: disperse 1.2s forwards;
+    }
+    @keyframes disperse {
+      0% {
+        opacity: 1;
+        filter: blur(0px);
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.5;
+        filter: blur(4px);
+        transform: scale(1.05);
+      }
+      100% {
+        opacity: 0;
+        filter: blur(12px);
+        transform: translateY(-80px) scale(0.6) rotate(8deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card" id="feedbackCard">
+    <div class="title">감상 남기기</div>
+    <div class="subtitle">당신이 느낀 잔향은 무엇이었나요?</div>
+    <div class="input-box">
+      <label for="name">이름*</label>
+      <input type="text" id="name" placeholder="표시될 이름을 써 주세요">
+    </div>
+    <div class="input-box">
+      <label for="email">이메일 (선택)</label>
+      <input type="email" id="email" placeholder="이메일 주소를 입력해주세요">
+    </div>
+    <div class="input-box">
+      <label for="message">감상*</label>
+      <textarea id="message" placeholder="기분, 기억, 감상을 자유롭게 남겨주세요" rows="4"></textarea>
+    </div>
+    <button onclick="submitFeedback()">전송하기</button>
+  </div>
+
+  <script>
+    function submitFeedback() {
+      const card = document.getElementById('feedbackCard');
+      card.classList.add('explode');
+      setTimeout(() => {
+        alert('감상이 등록되었습니다!');
+        card.classList.remove('explode');
+      }, 1300);
+    }
+
+    const card = document.getElementById('feedbackCard');
+
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = -(y - centerY) / 15;
+      const rotateY = (x - centerX) / 15;
+      card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+    });
+  </script>
+</body>
+</html>

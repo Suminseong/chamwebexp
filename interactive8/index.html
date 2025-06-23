@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Glass Cube with Poster Scroll</title>
+  <style>
+    body {
+      margin: 0;
+      background: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      perspective: 1000px;
+      overflow: hidden;
+    }
+
+    .scene {
+      width: 300px;
+      height: 300px;
+      position: relative;
+    }
+
+    .cube {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transform: translateZ(-150px);
+      transition: transform 0.3s ease;
+    }
+
+    .cube__face {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 1px;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
+      transition: 0.3s ease-in-out;
+    }
+
+    .cube__face--front  { transform: rotateY(0deg) translateZ(150px); }
+    .cube__face--back   { transform: rotateY(180deg) translateZ(150px); }
+    .cube__face--right  { transform: rotateY(90deg) translateZ(150px); }
+    .cube__face--left   { transform: rotateY(-90deg) translateZ(150px); }
+    .cube__face--top    { transform: rotateX(90deg) translateZ(150px); }
+    .cube__face--bottom { transform: rotateX(-90deg) translateZ(150px); }
+
+    .poster {
+      position: absolute;
+      width: 200px;
+      height: auto;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) translateZ(0px);
+      filter: grayscale(100%);
+      transition: 
+        transform 0.4s ease-in-out,
+        filter 1s ease-in-out,
+        opacity 0.4s ease-in-out;
+      border-radius: 12px;
+      z-index: 10;
+      pointer-events: none;
+      opacity: 1;
+    }
+
+    .cube__face:hover {
+      backdrop-filter: blur(0px);
+      transition: 0.3s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+  <div class="scene">
+    <div class="cube">
+      <div class="cube__face cube__face--front"></div>
+      <div class="cube__face cube__face--back"></div>
+      <div class="cube__face cube__face--right"></div>
+      <div class="cube__face cube__face--left"></div>
+      <div class="cube__face cube__face--top"></div>
+      <div class="cube__face cube__face--bottom"></div>
+      <img class="poster" src="https://i.ibb.co/m51HwsYc/dd5cfa311bffa299a0559597eccc6f82-1.png" alt="Poster">
+    </div>
+  </div>
+
+  <script>
+    const scene = document.querySelector('.scene');
+    const cube = document.querySelector('.cube');
+    const poster = document.querySelector('.poster');
+
+    const baseCubeTransform = 'translateZ(-150px)';
+    const basePosterTransform = 'translate(-50%, -50%)';
+
+    const posterImages = [
+      "https://i.ibb.co/m51HwsYc/dd5cfa311bffa299a0559597eccc6f82-1.png",
+      "https://i.postimg.cc/rpHsz6tP/image-16.png",
+      "https://i.postimg.cc/G2s2yMFh/image-3706.png"
+    ];
+    let currentPosterIndex = 0;
+
+    let isHovering = false;
+
+    scene.addEventListener('mouseenter', () => {
+      isHovering = true;
+      poster.style.filter = 'grayscale(0%)';
+      poster.style.zIndex = '1000';
+    });
+
+    scene.addEventListener('mousemove', (e) => {
+      if (!isHovering) return;
+
+      const rect = scene.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateY = ((x - centerX) / centerX) * 12 + 6;
+      const rotateX = ((centerY - y) / centerY) * 20 + 7;
+
+      cube.style.transform = `${baseCubeTransform} rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      poster.style.transform = `${basePosterTransform} translateZ(200px) translateY(-20px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+    });
+
+    scene.addEventListener('mouseleave', () => {
+      isHovering = false;
+      cube.style.transform = baseCubeTransform;
+      poster.style.transform = `${basePosterTransform} translateZ(0px) scale(1)`;
+      poster.style.filter = 'grayscale(100%)';
+      poster.style.zIndex = '10';
+    });
+
+    scene.addEventListener('wheel', (e) => {
+      e.preventDefault();
+
+      // 전환 효과: 사라지기
+      poster.style.opacity = '0';
+      poster.style.transform += ' translateY(30px) scale(0.95)';
+
+      setTimeout(() => {
+        // 인덱스 계산
+        if (e.deltaY > 0) {
+          currentPosterIndex = (currentPosterIndex + 1) % posterImages.length;
+        } else {
+          currentPosterIndex = (currentPosterIndex - 1 + posterImages.length) % posterImages.length;
+        }
+
+        // 이미지 교체 후 효과 복구
+        poster.src = posterImages[currentPosterIndex];
+        poster.onload = () => {
+          poster.style.opacity = '1';
+          poster.style.transform = isHovering
+            ? `${basePosterTransform} translateZ(200px) translateY(-20px) scale(1.02)`
+            : `${basePosterTransform} translateZ(0px) scale(1)`;
+        };
+      }, 200);
+    }, { passive: false });
+  </script>
+</body>
+</html>
