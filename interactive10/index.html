@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>3D Showroom Carousel</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+            background: #000;
+            overflow: hidden;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1200px;
+        }
+
+        .room {
+            width: 800px;
+            height: 500px;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateX(10deg) rotateY(0deg);
+        }
+
+        .face {
+            position: absolute;
+            background: #111;
+            border: 1px solid #222;
+            box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.3);
+            transform-origin: center center;
+            transition: background 0.5s ease;
+        }
+
+        .face.front {
+            width: 800px;
+            height: 500px;
+            transform: translateZ(0);
+            background: #0e0e0e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .poster {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            opacity: 0;
+            filter: grayscale(100%) brightness(0.5);
+            transition: opacity 0.6s ease-out, filter 0.6s ease, transform 0.4s ease;
+        }
+
+        .face.front.active .poster {
+            opacity: 1;
+            filter: grayscale(0%) brightness(1);
+            transform: scale(1.0);
+        }
+
+        .face.left,
+        .face.right {
+            width: 1600px;
+            height: 500px;
+        }
+
+        .face.left {
+            transform: rotateY(90deg) translateZ(0px);
+        }
+
+        .face.right {
+            transform: rotateY(-90deg) translateZ(800px);
+        }
+
+        .face.top,
+        .face.bottom {
+            width: 800px;
+            height: 1200px;
+        }
+
+        .face.top {
+            transform: rotateX(-90deg) translateZ(-600px);
+            transform-origin: center;
+        }
+
+        .face.bottom {
+            transform: rotateX(90deg) translateZ(100px) translateY(600px);
+            transform-origin: center;
+        }
+
+
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 48px;
+            color: #666;
+            cursor: pointer;
+            user-select: none;
+            z-index: 10;
+            transition: color 0.3s;
+        }
+
+        .arrow:hover {
+            color: #fff;
+        }
+
+        .arrow.left {
+            left: 30px;
+        }
+
+        .arrow.right {
+            right: 30px;
+        }
+
+        .dimmed {
+            background: #555555 !important;
+        }
+
+        .wall-text {
+            position: absolute;
+            color: #aaa;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+            opacity: 0.6;
+            white-space: nowrap;
+            pointer-events: none;
+            transform-style: preserve-3d;
+        }
+
+        /* 왼쪽 벽 텍스트 */
+        .left-text {
+            top: 70px;
+            right: 900px;
+            transform: rotateY(180deg);
+        }
+
+        /* 오른쪽 벽 텍스트 */
+        .right-text {
+            top: 160px;
+            right: 240px;
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="room">
+        <div class="face left">
+            <div class="wall-text left-text">
+            <p>
+                <strong style="font-size: x-large;">작품 명</strong><br>
+                <span style="font-size:xx-large">- 춘전이가 좋아용 -</span>
+            </p>
+            <p>
+                We pass by countless moments as we live.<br>
+                Though these moments seem to fade away, they gently permeate our hearts, <br>
+                becoming memories, and ultimately form a part of who we are.<br>
+
+                This exhibition aims to leave a 'scent of memory' that lingers with visitors, so that even as time passes, 
+                <br>the essence of the works may resurface in their minds.<br><br>
+                Rather than a mere display of finished results, we hope that the traces of creation and contemplation accumulated in this 
+                <br>space will quietly remain in the senses and emotions of those who stay here.<br><br>
+
+                May the moment you encounter this exhibition one day blossom again as a sudden inspiration. 
+                <br>And may our lingering traces stay in someone's memory for a long time.<br>
+            </p>
+            </div>
+        </div>
+        <div class="face right">
+            <div class="wall-text right-text">김한종 교수님 사랑해요우</div>
+        </div>
+        <div class="face top"></div>
+        <div class="face bottom"></div>
+        <div class="face front active">
+            <div class="arrow left">&#10094;</div>
+            <div class="arrow right">&#10095;</div>
+            <img class="poster" src="https://i.ibb.co/m51HwsYc/dd5cfa311bffa299a0559597eccc6f82-1.png" alt="Poster">
+        </div>
+    </div>
+
+    <script>
+        const posterImages = [
+            "https://i.ibb.co/m51HwsYc/dd5cfa311bffa299a0559597eccc6f82-1.png",
+            "https://i.postimg.cc/rpHsz6tP/image-16.png",
+            "https://i.postimg.cc/G2s2yMFh/image-3706.png"
+        ];
+
+        let index = 0;
+
+        const poster = document.querySelector('.poster');
+        const front = document.querySelector('.face.front');
+        const arrows = document.querySelectorAll('.arrow');
+        const walls = document.querySelectorAll('.face');
+
+        function setBrightness(down = true) {
+            walls.forEach(face => {
+                face.classList.toggle('dimmed', !down);
+                front.classList.toggle('dimmed', !down);
+            });
+        }
+
+        function changePoster(next = true) {
+            front.classList.remove('active');
+            setBrightness(false);
+
+            setTimeout(() => {
+                index = next
+                    ? (index + 1) % posterImages.length
+                    : (index - 1 + posterImages.length) % posterImages.length;
+
+                poster.src = posterImages[index];
+
+                poster.onload = () => {
+                    front.classList.add('active');
+                    setBrightness(true);
+                };
+            }, 400);
+        }
+
+        arrows.forEach(arrow => {
+            arrow.addEventListener('click', () => {
+                const next = arrow.classList.contains('right');
+                changePoster(next);
+            });
+        });
+    </script>
+</body>
+
+</html>
